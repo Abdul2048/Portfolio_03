@@ -1,0 +1,1922 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light" data-mode="y2k">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>Abdul Rehman — Portfolio 2003</title>
+  <meta name="description" content="Portfolio of Abdul Rehman, final-year CSE student and ML engineer. Transformers, RAG systems, and production inference APIs." />
+  <meta name="theme-color" content="#245EDC" />
+  <meta property="og:title" content="Abdul Rehman — Portfolio 2003" />
+  <meta property="og:description" content="From-scratch transformers, offline RAG, and production ML APIs." />
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect fill='%23245EDC' width='32' height='32' rx='4'/%3E%3Ctext x='16' y='23' text-anchor='middle' fill='white' font-family='Trebuchet MS' font-size='18' font-weight='bold'%3EA%3C/text%3E%3C/svg%3E" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=VT323&display=swap" rel="stylesheet" />
+  <style>
+    /* ========== STYLES ========== */
+    :root {
+      color-scheme: light;
+      --blue-deep: #0A246A;
+      --blue-luna: #245EDC;
+      --blue-light: #5A9CF5;
+      --sky: #A8D4FF;
+      --aqua-glow: #6CB8FF;
+      --silver: #D4D8DE;
+      --silver-dark: #8E959F;
+      --white-gloss: #FFFFFF;
+      --ink: #1A1F2B;
+      --accent-green: #6BC72B;
+      --accent-orange: #FF8A1F;
+      --desk-1: #8B5A2B;
+      --desk-2: #5C3A1A;
+      --bezel: #E8E2D0;
+      --bezel-dark: #c9c0a8;
+      --win-face: #ECE9D8;
+      --win-inset: #ffffff;
+      --task: #245EDC;
+      --status: #ECE9D8;
+      --muted: #5c6573;
+      --card: #f4f1e6;
+      --shadow: rgba(10, 20, 40, .45);
+      --glass: rgba(255,255,255,.22);
+      --hill: #4ea33a;
+      --hill-dark: #2f6b24;
+      --crt: rgba(10, 20, 40, .12);
+      --focus: #FFD24A;
+      --sidebar: #d6e6fb;
+      --addr: #fff;
+    }
+    [data-theme="dark"] {
+      color-scheme: dark;
+      --ink: #E8ECF4;
+      --bezel: #3d4452;
+      --bezel-dark: #2a303c;
+      --win-face: #2b3344;
+      --win-inset: #1c2333;
+      --task: #16357a;
+      --status: #243049;
+      --muted: #a8b3c7;
+      --card: #323b50;
+      --shadow: rgba(0,0,0,.65);
+      --glass: rgba(255,255,255,.08);
+      --hill: #1d4a28;
+      --hill-dark: #0f2a18;
+      --sky: #1a2748;
+      --crt: rgba(0, 255, 120, .05);
+      --sidebar: #1e2a44;
+      --addr: #1a2233;
+      --silver: #6d7480;
+    }
+    * { box-sizing: border-box; }
+    html, body { margin: 0; height: 100%; }
+    body {
+      font-family: Tahoma, Verdana, "Trebuchet MS", "Lucida Grande", sans-serif;
+      color: var(--ink);
+      background: #0b1020;
+      overflow: hidden;
+    }
+    button, input, select, textarea { font-family: inherit; }
+    :focus-visible { outline: 3px solid var(--focus); outline-offset: 2px; }
+    .skip {
+      position: absolute; left: 8px; top: -40px; z-index: 10000;
+      background: #000; color: #fff; padding: 8px 12px;
+    }
+    .skip:focus { top: 8px; }
+
+    /* Boot */
+    #boot {
+      position: fixed; inset: 0; z-index: 9000; background: #000;
+      color: #33ff66; font-family: "VT323", "Courier New", monospace;
+      font-size: 22px; padding: 8vh 8vw; line-height: 1.45;
+    }
+    #boot.hide { display: none; }
+    #boot .bar { width: min(420px, 80%); height: 18px; border: 2px solid #33ff66; margin-top: 12px; }
+    #boot .fill { height: 100%; width: 0; background: #33ff66; }
+    #boot .skip-boot {
+      margin-top: 20px; background: transparent; color: #33ff66;
+      border: 1px solid #33ff66; padding: 6px 14px; cursor: pointer; font: inherit;
+    }
+
+    /* World / 3D room */
+    #world {
+      position: fixed; inset: 0; perspective: 1400px;
+      background: #0b1020;
+    }
+    .sky {
+      position: absolute; inset: 0;
+      background:
+        radial-gradient(circle at 18% 18%, #fff8 0 2px, transparent 3px),
+        radial-gradient(circle at 70% 22%, #fff6 0 1px, transparent 2px),
+        linear-gradient(#6cb8ff 0%, var(--sky) 42%, #8fd36a 42%, var(--hill) 70%, var(--hill-dark) 100%);
+      transition: background .6s ease, filter .6s ease;
+    }
+    [data-theme="dark"] .sky {
+      background:
+        radial-gradient(circle at 22% 16%, #fff 0 3px, transparent 4px),
+        radial-gradient(circle at 60% 10%, #fff8 0 1px, transparent 2px),
+        radial-gradient(circle at 80% 24%, #fff5 0 2px, transparent 3px),
+        linear-gradient(#070b18 0%, #152044 46%, #12301c 46%, #0c2414 100%);
+    }
+    [data-theme="dark"] .sky::after {
+      content: ""; position: absolute; width: 90px; height: 90px; right: 12%; top: 8%;
+      border-radius: 50%; background: radial-gradient(circle at 35% 35%, #f7f3d0, #c9c48a);
+      box-shadow: 0 0 40px #fff6;
+    }
+    #scene {
+      position: absolute; inset: 0; transform-style: preserve-3d;
+      display: flex; align-items: flex-end; justify-content: center;
+      transition: transform .7s cubic-bezier(.22,.8,.28,1);
+    }
+    .room {
+      position: relative; width: min(1200px, 96vw); height: min(780px, 94vh);
+      transform-style: preserve-3d;
+    }
+    .wall {
+      position: absolute; left: 4%; right: 4%; top: 0; height: 58%;
+      background:
+        repeating-linear-gradient(90deg, #d9cbb0 0 28px, #d0c1a4 28px 30px);
+      border-bottom: 10px solid #b9a888;
+      transform: translateZ(-80px);
+    }
+    [data-theme="dark"] .wall {
+      background: repeating-linear-gradient(90deg, #2a2433 0 28px, #231e2b 28px 30px);
+      border-bottom-color: #1a1620;
+    }
+    .cork {
+      position: absolute; left: 7%; top: 8%; width: 210px; height: 150px;
+      background: #c4a36a; border: 8px solid #8a6a3c; box-shadow: 4px 8px 0 #0003;
+      cursor: pointer; transform: translateZ(-40px);
+    }
+    .cork .note { position: absolute; width: 54px; height: 48px; padding: 6px; font-size: 9px; font-weight: 700; }
+    .cork .n1 { background: #ffe37a; left: 12px; top: 16px; transform: rotate(-6deg); }
+    .cork .n2 { background: #ffb4c8; right: 18px; top: 22px; transform: rotate(8deg); }
+    .cork .n3 { background: #b4e4ff; left: 70px; bottom: 14px; transform: rotate(2deg); }
+    .poster {
+      position: absolute; right: 8%; top: 10%; width: 120px; height: 150px;
+      background: linear-gradient(#245EDC, #6CB8FF); color: #fff; padding: 10px;
+      font-family: "Trebuchet MS", sans-serif; font-weight: 800; font-size: 13px;
+      box-shadow: 6px 8px 0 #0004; transform: rotate(4deg) translateZ(-40px);
+    }
+    .desk {
+      position: absolute; left: -4%; right: -4%; bottom: 0; height: 34%;
+      background:
+        repeating-linear-gradient(90deg, var(--desk-1) 0 10px, #7a4a22 10px 12px, var(--desk-2) 12px 18px);
+      border-top: 14px solid #4a2c12;
+      box-shadow: inset 0 18px 24px #0004;
+      transform: translateZ(20px);
+    }
+    .mat {
+      position: absolute; left: 22%; right: 22%; top: 10%; height: 54%;
+      background: #2e5a3a; border-radius: 8px; box-shadow: inset 0 0 0 6px #244a30, 0 10px 0 #0003;
+    }
+    [data-theme="dark"] .mat { background: #173322; }
+
+    .hotspot { cursor: pointer; transform-style: preserve-3d; }
+    .hotspot:focus-visible { outline: 3px solid var(--focus); }
+
+    .cds { position: absolute; left: 3%; bottom: 28%; width: 90px; height: 120px; }
+    .cd {
+      position: absolute; width: 86px; height: 110px; border-radius: 4px;
+      background: linear-gradient(#3a6ad4, #1d3f9a); border: 2px solid #0a246a;
+      box-shadow: 3px 4px 0 #0005; color: #fff; font-size: 9px; font-weight: 700;
+      padding: 8px 6px; transform: rotate(-8deg);
+    }
+    .cd:nth-child(2) { left: 14px; background: linear-gradient(#d44, #8a1a1a); transform: rotate(6deg); }
+    .cd:nth-child(3) { left: 8px; top: 8px; background: linear-gradient(#2a8a4a, #145c28); }
+
+    .notebook {
+      position: absolute; right: 7%; bottom: 30%; width: 110px; height: 78px;
+      background: #f3efe3; border: 2px solid #888; border-left: 14px solid #c23;
+      box-shadow: 4px 6px 0 #0004; transform: rotate(8deg);
+    }
+    .notebook::before {
+      content: ""; position: absolute; inset: 8px 8px 8px 4px;
+      background: repeating-linear-gradient(#cde 0 1px, transparent 1px 10px);
+    }
+    .pen {
+      position: absolute; right: 5%; bottom: 38%; width: 70px; height: 8px;
+      background: linear-gradient(#245EDC, #0A246A); border-radius: 4px;
+      transform: rotate(-28deg); box-shadow: 2px 2px 0 #0004;
+    }
+
+    .typewriter {
+      position: absolute; left: 12%; bottom: 18%; width: 92px; height: 48px;
+      background: #3a3a3a; border-radius: 6px 6px 2px 2px; box-shadow: 4px 6px 0 #0005;
+    }
+    .typewriter .platen { position: absolute; left: 8px; right: 8px; top: -10px; height: 14px; background: #222; border-radius: 8px; }
+    .typewriter .paper { position: absolute; left: 22px; top: -28px; width: 48px; height: 26px; background: #f6f1dc; font-size: 7px; padding: 2px; }
+
+    .camera {
+      position: absolute; right: 18%; bottom: 20%; width: 64px; height: 42px;
+      background: linear-gradient(#3a3f48, #1c2028); border-radius: 8px; box-shadow: 3px 5px 0 #0005;
+    }
+    .camera .lens {
+      position: absolute; left: 8px; top: 8px; width: 26px; height: 26px; border-radius: 50%;
+      background: radial-gradient(circle at 40% 40%, #9cf, #123);
+      box-shadow: inset 0 0 0 3px #111;
+    }
+    .album {
+      position: absolute; right: 12%; bottom: 16%; width: 50px; height: 38px;
+      background: #8a2a2a; border: 2px solid #5a1515; transform: rotate(12deg);
+    }
+
+    .rolodex {
+      position: absolute; left: 22%; bottom: 16%; width: 70px; height: 44px;
+      background: #c9c4b8; border: 2px solid #888; border-radius: 4px;
+      box-shadow: 3px 4px 0 #0004;
+    }
+    .rolodex::after { content: ""; position: absolute; left: 8px; right: 8px; top: 8px; bottom: 8px; background: repeating-linear-gradient(#fff 0 4px, #ddd 4px 6px); }
+
+    .floppy {
+      position: absolute; left: 30%; bottom: 15%; width: 40px; height: 42px;
+      background: #3a6a2a; border: 2px solid #1a3a12; border-radius: 2px;
+    }
+    .floppy .label { position: absolute; left: 4px; right: 4px; top: 10px; height: 18px; background: #f4eedc; font-size: 6px; padding: 2px; font-weight: 700; }
+
+    .lamp {
+      position: absolute; right: 26%; bottom: 42%; width: 16px; height: 90px; pointer-events: none;
+    }
+    .lamp .arm { position: absolute; bottom: 0; left: 6px; width: 6px; height: 70px; background: #888; transform: rotate(18deg); }
+    .lamp .head { position: absolute; top: 0; left: -6px; width: 28px; height: 18px; background: #d4c48a; border-radius: 4px 12px 4px 4px; }
+    .lamp .cone {
+      position: absolute; top: 16px; left: -30px; width: 90px; height: 90px;
+      background: radial-gradient(circle at 50% 0, #ffe9a8aa, transparent 70%);
+      opacity: .35; pointer-events: none;
+    }
+    [data-theme="dark"] .lamp .cone { opacity: .85; }
+
+    .mug {
+      position: absolute; left: 40%; bottom: 18%; width: 28px; height: 32px;
+      background: #eee; border: 2px solid #bbb; border-radius: 0 0 8px 8px;
+    }
+    .mug::after { content: ""; position: absolute; right: -10px; top: 6px; width: 10px; height: 14px; border: 2px solid #bbb; border-left: 0; border-radius: 0 8px 8px 0; }
+    .plant {
+      position: absolute; left: 2%; bottom: 40%; width: 36px; height: 50px;
+    }
+    .plant .pot { position: absolute; bottom: 0; left: 8px; width: 20px; height: 16px; background: #c45; border-radius: 0 0 6px 6px; }
+    .plant .leaf { position: absolute; width: 16px; height: 22px; background: #3a8a3a; border-radius: 50% 0; }
+    .plant .leaf:nth-child(1) { left: 4px; top: 6px; }
+    .plant .leaf:nth-child(2) { left: 16px; top: 2px; transform: scaleX(-1); }
+
+    .kbd {
+      position: absolute; left: 34%; bottom: 8%; width: 220px; height: 52px;
+      background: #e8e2d0; border: 2px solid #b8b09a; border-radius: 6px;
+      display: grid; grid-template-columns: repeat(12, 1fr); gap: 3px; padding: 6px;
+      transform: rotateX(40deg);
+    }
+    .kbd i {
+      display: block; background: linear-gradient(#fff, #d8d2c2); border: 1px solid #aaa;
+      border-radius: 2px; box-shadow: 0 2px 0 #888;
+    }
+    .kbd i:hover { transform: translateY(1px); box-shadow: 0 1px 0 #888; }
+    .mouse {
+      position: absolute; left: 56%; bottom: 10%; width: 28px; height: 42px;
+      background: #eee; border: 2px solid #bbb; border-radius: 12px 12px 10px 10px;
+    }
+    .mouse .cable { position: absolute; top: -24px; left: 12px; width: 2px; height: 26px; background: #888; }
+
+    /* Monitor */
+    .monitor-wrap {
+      position: absolute; left: 50%; bottom: 16%; transform: translateX(-50%);
+      width: min(860px, 78vw); z-index: 4;
+      transition: transform .7s cubic-bezier(.22,.8,.28,1), width .7s ease, bottom .7s ease, height .7s ease;
+    }
+    .crt {
+      background: linear-gradient(#f3eee0, var(--bezel) 30%, var(--bezel-dark));
+      border-radius: 18px 18px 10px 10px;
+      padding: 16px 16px 28px;
+      box-shadow:
+        inset 4px 4px 0 #fff8,
+        inset -4px -6px 0 #0002,
+        0 18px 40px var(--shadow);
+      position: relative;
+    }
+    .brand {
+      position: absolute; bottom: 8px; left: 50%; transform: translateX(-50%);
+      font-size: 10px; letter-spacing: .12em; color: #6a6458; font-weight: 700;
+    }
+    .led {
+      position: absolute; bottom: 10px; right: 18px; width: 8px; height: 8px;
+      background: var(--accent-green); border-radius: 50%;
+      box-shadow: 0 0 8px var(--accent-green); cursor: pointer;
+    }
+    .screen {
+      height: min(520px, 58vh); background: var(--blue-luna);
+      border: 6px solid #222; border-radius: 4px; position: relative;
+      overflow: hidden; box-shadow: inset 0 0 40px #0008;
+    }
+    .crt-fx {
+      pointer-events: none; position: absolute; inset: 22px 22px 40px;
+      background:
+        repeating-linear-gradient(transparent, transparent 2px, rgba(0,0,0,.06) 3px),
+        radial-gradient(circle, transparent 50%, var(--crt) 100%);
+      mix-blend-mode: multiply; opacity: .45; border-radius: 4px;
+    }
+    body.zoomed .room .wall,
+    body.zoomed .cork, body.zoomed .poster, body.zoomed .cds,
+    body.zoomed .notebook, body.zoomed .pen, body.zoomed .typewriter,
+    body.zoomed .camera, body.zoomed .album, body.zoomed .rolodex,
+    body.zoomed .floppy, body.zoomed .lamp, body.zoomed .mug,
+    body.zoomed .plant, body.zoomed .kbd, body.zoomed .mouse, body.zoomed .desk,
+    body.zoomed .sky, body.zoomed .hotspot {
+      display: none !important;
+    }
+    body.zoomed #world { background: #0b1020; perspective: none; }
+    body.zoomed #scene {
+      display: block;
+      position: fixed;
+      inset: 0;
+      transform: none !important;
+    }
+    body.zoomed .room,
+    body.zoomed .monitor-wrap,
+    body.zoomed .crt,
+    body.zoomed .screen {
+      position: absolute;
+      inset: 0;
+      width: 100% !important;
+      height: 100% !important;
+      max-height: none;
+      transform: none !important;
+      border-radius: 0;
+      padding: 0;
+      box-shadow: none;
+      border: 0;
+    }
+    body.zoomed .crt { background: #111; }
+    body.zoomed #os {
+      position: absolute;
+      inset: 0;
+      height: 100%;
+      max-height: 100%;
+    }
+    body.zoomed #buddy, body.plain-on #buddy { display: none !important; }
+
+    /* OS */
+    #os {
+      position: absolute; inset: 0; display: flex; flex-direction: column;
+      background: var(--win-inset); color: var(--ink); height: 100%; max-height: 100%;
+    }
+    .os-tabs {
+      display: flex; gap: 2px; padding: 6px 8px 0; background: linear-gradient(#c5d8f5, #9bb8e8);
+      border-bottom: 1px solid var(--blue-deep);
+    }
+    [data-theme="dark"] .os-tabs { background: linear-gradient(#243868, #162448); }
+    .tab {
+      appearance: none; border: 1px solid var(--blue-deep); border-bottom: 0;
+      background: linear-gradient(#eef4ff, #9db6e0); color: var(--blue-deep);
+      padding: 7px 16px 8px; border-radius: 8px 8px 0 0; font-weight: 700;
+      font-size: 12px; cursor: pointer; transform: translateY(3px); box-shadow: inset 0 1px 0 #fff;
+    }
+    .tab.on {
+      background: linear-gradient(#fff, #e8eefc); transform: translateY(1px);
+      padding-top: 9px; color: var(--blue-deep);
+    }
+    [data-theme="dark"] .tab { background: linear-gradient(#3a4e78, #24345c); color: #dce6ff; }
+    [data-theme="dark"] .tab.on { background: linear-gradient(#3a4a68, #2b3344); color: #fff; }
+    .addrbar {
+      display: flex; gap: 8px; align-items: center; padding: 6px 8px;
+      background: linear-gradient(var(--silver), #b8bec8); font-size: 12px;
+    }
+    .theme-toggle {
+      flex-shrink: 0; margin-left: 4px;
+      background: linear-gradient(#fff, #c8c8c8); border: 1px solid #555; border-radius: 3px;
+      cursor: pointer; color: #123; padding: 5px 10px; font-size: 12px; font-weight: 800;
+      white-space: nowrap;
+    }
+    [data-theme="dark"] .addrbar { background: linear-gradient(#3a4254, #2a3140); }
+    .addrbar label { font-weight: 700; white-space: nowrap; }
+    .addrbar input {
+      flex: 1; min-width: 0; border: 1px solid #666; padding: 5px 8px;
+      background: var(--addr); color: var(--ink);
+    }
+    .crumb { font-size: 11px; color: var(--muted); padding: 0 10px 4px; background: var(--win-face); }
+
+    .os-body { flex: 1; display: flex; min-height: 0; overflow: hidden; background: var(--win-face); }
+    .sidebar {
+      width: 168px; flex-shrink: 0; background: var(--sidebar);
+      border-right: 1px solid #8aa; padding: 8px; overflow: auto;
+    }
+    .sidebar h4 { margin: 0 0 6px; font-size: 11px; color: var(--blue-deep); }
+    [data-theme="dark"] .sidebar h4 { color: var(--sky); }
+    .nav-btn {
+      display: block; width: 100%; text-align: left; border: 0; background: transparent;
+      color: inherit; padding: 6px 8px; border-radius: 4px; cursor: pointer; font-size: 12px;
+    }
+    .nav-btn:hover { background: #fff6; }
+    .nav-btn.on { background: var(--blue-luna); color: #fff; font-weight: 700; }
+    #view { flex: 1; min-height: 0; min-width: 0; overflow-y: auto; overflow-x: hidden; padding: 12px; position: relative; }
+    #os > #view { height: 0; }
+
+    .taskbar {
+      display: flex; align-items: center; gap: 6px; padding: 4px 6px;
+      background: linear-gradient(#4d8af0, var(--task));
+      color: #fff; min-height: 36px;
+    }
+    .start {
+      background: linear-gradient(#b6ee7a, var(--accent-green) 55%, #3d9a18);
+      border: 1px solid #1a5a08; color: #143; font-weight: 800;
+      border-radius: 16px; padding: 5px 14px 5px 10px; cursor: pointer;
+      box-shadow: inset 0 1px 0 #fff8, 0 2px 0 #0004;
+    }
+    .start:active { transform: translateY(1px); }
+    .tray { margin-left: auto; display: flex; align-items: center; gap: 6px; font-family: "VT323", monospace; font-size: 18px; }
+    .tray button, .icon-btn {
+      background: linear-gradient(#fff, #c8c8c8); border: 1px solid #555; border-radius: 3px;
+      cursor: pointer; color: #123; padding: 3px 7px; font-size: 11px; font-weight: 700;
+    }
+    .tb-wins { display: flex; gap: 4px; overflow: auto; }
+    .tb-win {
+      background: linear-gradient(#7aa7f0, #3a6fd0); border: 1px solid #0A246A;
+      color: #fff; font-size: 11px; padding: 4px 8px; cursor: pointer; max-width: 140px;
+      white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+    }
+
+    .status {
+      display: flex; flex-wrap: wrap; gap: 8px; align-items: center;
+      padding: 3px 8px; background: var(--status); border-top: 1px solid #888;
+      font-size: 11px;
+    }
+    .odo { font-family: "VT323", monospace; font-size: 16px; letter-spacing: 2px; background: #111; color: #6f6; padding: 0 6px; }
+
+    /* Components */
+    .hero { display: grid; grid-template-columns: 140px 1fr; gap: 16px; align-items: start; }
+    .polaroid {
+      background: #fff; padding: 8px 8px 28px; box-shadow: 4px 6px 0 #0003;
+      transform: rotate(-3deg); text-align: center; font-size: 10px; color: #333;
+    }
+    .polaroid img { width: 100%; height: 110px; object-fit: cover; display: block; }
+    .badge-face {
+      height: 110px; background:
+        repeating-linear-gradient(45deg, #cde, #cde 8px, #bcd 8px 16px);
+      display: grid; place-items: center; font-weight: 800; color: #345;
+    }
+    .y2k-title {
+      font-family: "Trebuchet MS", sans-serif; font-size: clamp(28px, 4vw, 44px);
+      margin: 0; letter-spacing: -1px;
+      background: linear-gradient(#fff, #5A9CF5 40%, #0A246A);
+      -webkit-background-clip: text; background-clip: text; color: transparent;
+      filter: drop-shadow(2px 2px 0 #0A246A);
+    }
+    [data-theme="dark"] .y2k-title {
+      background: linear-gradient(#fff, #8ec4ff 40%, #6CB8FF);
+      -webkit-background-clip: text; background-clip: text; color: transparent;
+    }
+    .tagline { font-size: 16px; margin: 6px 0 12px; }
+    .muted { color: var(--muted); }
+    .row { display: flex; flex-wrap: wrap; gap: 8px; }
+
+    .aqua {
+      position: relative; cursor: pointer; color: #063; font-weight: 800; font-size: 13px;
+      padding: 8px 14px; border: 1px solid #1a5a88; border-radius: 14px;
+      background: linear-gradient(#d9f2ff, #6CB8FF 48%, #2a7fd4);
+      box-shadow: inset 0 1px 0 #fff, 0 3px 6px #0004;
+    }
+    .aqua::after {
+      content: ""; position: absolute; left: 10%; right: 10%; top: 3px; height: 42%;
+      background: linear-gradient(#fff9, #fff0); border-radius: 10px; pointer-events: none;
+    }
+    .aqua:active { transform: translateY(1px); filter: brightness(.92); }
+    .aqua.alt { background: linear-gradient(#e8ffc8, #6BC72B 55%, #3a9a14); border-color: #1a5a08; color: #143; }
+    .aqua.warn { background: linear-gradient(#ffe7c2, var(--accent-orange) 55%, #c65); color: #421; }
+
+    .panel {
+      background: var(--card); border: 2px solid #8884; padding: 12px; margin: 10px 0;
+      box-shadow: inset 1px 1px 0 #fff6, 3px 3px 0 #0002;
+    }
+    .section-h { font-family: "Trebuchet MS", sans-serif; margin: 4px 0 10px; font-size: 20px; }
+    .blink { animation: blink 1s steps(2) infinite; color: var(--accent-orange); font-weight: 800; font-size: 11px; }
+    @keyframes blink { to { opacity: 0; } }
+
+    .edu { width: 100%; border-collapse: collapse; font-size: 13px; }
+    .edu th, .edu td { border: 1px solid #8886; padding: 6px 8px; text-align: left; }
+    .edu th { background: var(--blue-luna); color: #fff; }
+
+    .tl { border-left: 3px solid var(--blue-luna); padding-left: 14px; }
+    .tl article { margin: 0 0 16px; }
+    .tl h3 { margin: 0 0 4px; }
+
+    .filters { display: flex; flex-wrap: wrap; gap: 6px; margin: 8px 0; }
+    .chip {
+      border: 1px solid #668; background: var(--win-inset); color: inherit;
+      border-radius: 999px; padding: 4px 10px; cursor: pointer; font-size: 11px;
+    }
+    .chip.on { background: var(--blue-luna); color: #fff; }
+
+    .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 14px; }
+    .flip { perspective: 900px; height: 220px; }
+    .flip-inner {
+      position: relative; height: 100%; transform-style: preserve-3d;
+      transition: transform .6s cubic-bezier(.22,.8,.28,1);
+    }
+    .flip.flipped .flip-inner, .flip:hover .flip-inner { transform: rotateY(180deg); }
+    .face {
+      position: absolute; inset: 0; backface-visibility: hidden; border-radius: 8px;
+      padding: 10px; border: 2px solid #245EDC; box-shadow: 4px 6px 0 #0003;
+    }
+    .front { background: linear-gradient(#fff, #d6e6ff); }
+    .back { background: linear-gradient(#245EDC, #0A246A); color: #fff; transform: rotateY(180deg); }
+    [data-theme="dark"] .front { background: linear-gradient(#3a4a68, #243044); }
+    .faux {
+      height: 88px; border-radius: 4px; margin-bottom: 8px;
+      background:
+        linear-gradient(90deg, #245EDC, #6CB8FF),
+        repeating-linear-gradient(#fff2 0 8px, transparent 8px 16px);
+      display: grid; place-items: center; color: #fff; font-weight: 800; font-size: 12px;
+    }
+    .pills { display: flex; flex-wrap: wrap; gap: 4px; }
+    .pill { background: #fff3; border: 1px solid #fff6; border-radius: 999px; padding: 2px 7px; font-size: 10px; }
+    .front .pill { background: #245EDC; color: #fff; }
+
+    .skills-legend {
+      display: flex; flex-wrap: wrap; gap: 10px; align-items: center;
+      margin: 0 0 12px; padding: 8px 10px; background: var(--win-inset);
+      border: 1px solid #8886; font-size: 12px;
+    }
+    .skills-legend .key { display: flex; align-items: center; gap: 6px; }
+    .skill-map {
+      display: flex; flex-wrap: wrap; gap: 6px; margin: 0 0 12px;
+    }
+    .skill-map a, .skill-map span {
+      font-size: 11px; padding: 3px 8px; border: 1px solid #7a90b8;
+      background: var(--win-inset); color: inherit; text-decoration: none;
+    }
+    .skill-tree {
+      background: var(--win-inset); border: 2px inset #888;
+      padding: 8px 10px 12px; font-size: 13px;
+    }
+    .tree-root {
+      font-weight: 800; padding: 6px 8px; margin-bottom: 6px;
+      background: linear-gradient(#5A9CF5, #245EDC); color: #fff;
+    }
+    .tree-folder {
+      margin: 0 0 4px 8px; padding-left: 14px;
+      border-left: 2px dotted #7a90b8;
+    }
+    .tree-folder > summary {
+      cursor: pointer; list-style: none; font-weight: 800;
+      padding: 6px 8px; background: var(--card); border: 1px solid #7a90b8;
+      margin-left: -14px;
+    }
+    .tree-folder > summary::-webkit-details-marker { display: none; }
+    .tree-folder > summary::before { content: "▾ "; color: var(--blue-luna); }
+    .tree-folder:not([open]) > summary::before { content: "▸ "; }
+    .tree-tier { margin: 6px 0 8px 12px; padding-left: 12px; border-left: 2px solid #c5d8f5; }
+    .tree-tier-h { font-size: 11px; font-weight: 800; letter-spacing: .04em; margin: 0 0 4px; color: var(--muted); }
+    .skill-row {
+      display: grid; grid-template-columns: 1fr auto auto; gap: 8px; align-items: center;
+      padding: 5px 8px; margin: 0 0 4px; background: var(--card); border: 1px solid #8884; font-size: 13px;
+    }
+    .skill-row .name { font-weight: 700; }
+    .meter { display: flex; gap: 3px; }
+    .meter b {
+      width: 14px; height: 12px; border: 1px solid #245EDC; background: #c5d8f5; border-radius: 1px;
+    }
+    .meter b.on { background: linear-gradient(#8fde4a, #3a9a14); }
+    .meter.t-Advanced b.on { background: linear-gradient(#6BC72B, #2e8a12); }
+    .meter.t-Proficient b.on { background: linear-gradient(#5A9CF5, #245EDC); }
+    .meter.t-Familiar b.on { background: linear-gradient(#ffd24a, #e0a000); }
+    .tier-badge {
+      font-size: 10px; font-weight: 800; padding: 2px 7px; border-radius: 999px;
+      border: 1px solid #0003; white-space: nowrap;
+    }
+    .tier-badge.Advanced { background: #d9f7c4; color: #163; }
+    .tier-badge.Proficient { background: #d6e8ff; color: #124; }
+    .tier-badge.Familiar { background: #fff3c4; color: #542; }
+    [data-theme="dark"] .tree-folder { border-left-color: #4a6aa0; }
+    [data-theme="dark"] .tree-folder > summary, [data-theme="dark"] .skill-row { background: #1c2333; }
+    [data-theme="dark"] .tree-tier { border-left-color: #3a4a68; }
+    [data-theme="dark"] .tier-badge.Advanced { background: #1e4a22; color: #cfe; }
+    [data-theme="dark"] .tier-badge.Proficient { background: #1a335c; color: #cde; }
+    [data-theme="dark"] .tier-badge.Familiar { background: #4a3a12; color: #fec; }
+
+    .certs { display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 12px; }
+    .frame {
+      background: linear-gradient(#d4b46a, #a67c32); padding: 8px; color: #1a1a12;
+      box-shadow: 4px 6px 0 #0004;
+    }
+    .frame inner, .frame .inner { background: #f7f1dc; padding: 10px; min-height: 90px; }
+    .shelf { display: flex; gap: 10px; flex-wrap: wrap; padding: 10px; background: #5c3a1a; border-radius: 4px; }
+    .trophy { width: 64px; text-align: center; font-size: 10px; color: #fff; }
+    .cup { width: 40px; height: 36px; margin: 0 auto 4px; background: linear-gradient(#ffe37a, #c9a227); clip-path: polygon(20% 0, 80% 0, 70% 70%, 90% 100%, 10% 100%, 30% 70%); }
+
+    .badges { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 10px; }
+    .b88 {
+      width: 88px; height: 31px; image-rendering: pixelated;
+      font-size: 9px; font-weight: 800; display: grid; place-items: center;
+      color: #fff; text-align: center; line-height: 1.1; border: 1px solid #000;
+    }
+
+    .mail { background: var(--win-inset); border: 1px solid #888; }
+    .mail .mh { background: linear-gradient(#c5d8f5, #9bb8e8); padding: 6px 8px; font-weight: 700; }
+    .mail .rowf { display: grid; grid-template-columns: 70px 1fr; gap: 6px; padding: 6px 8px; font-size: 12px; }
+    .mail textarea, .mail input { width: 100%; border: 1px solid #888; background: var(--addr); color: inherit; padding: 4px; }
+    .mail textarea { min-height: 80px; }
+
+    .gb { font-size: 13px; }
+    .gb article { border-bottom: 1px dashed #8886; padding: 8px 0; }
+
+    .blog-banner {
+      background: linear-gradient(#5A9CF5, #245EDC);
+      color: #fff; padding: 14px; font-family: "Trebuchet MS", sans-serif;
+      text-shadow: 2px 2px 0 #0A246A; margin-bottom: 10px;
+    }
+    .blog-layout { display: grid; grid-template-columns: 1fr 200px; gap: 12px; }
+    .post-card { background: var(--card); border: 1px solid #8886; padding: 10px; margin: 0 0 10px; }
+    .codewin {
+      background: #111; color: #9f9; font-family: "Courier New", monospace;
+      font-size: 12px; padding: 10px; border: 4px solid #c0c0c0; overflow: auto;
+    }
+
+    .albums { display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 16px; }
+    .pile { height: 160px; position: relative; cursor: pointer; }
+    .pile img, .pile .ph {
+      position: absolute; width: 140px; height: 110px; object-fit: cover;
+      border: 8px solid #fff; box-shadow: 4px 6px 12px #0005; background: #89a;
+    }
+    .pile .ph:nth-child(1) { transform: rotate(-8deg); left: 0; top: 10px; }
+    .pile .ph:nth-child(2) { transform: rotate(4deg); left: 16px; top: 4px; }
+    .pile .ph:nth-child(3) { transform: rotate(10deg); left: 28px; top: 16px; }
+    .pile:hover .ph:nth-child(1) { transform: rotate(-16deg) translateX(-8px); }
+    .prints { display: grid; grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); gap: 12px; }
+    .print {
+      background: #fff; padding: 8px 8px 24px; box-shadow: 3px 5px 10px #0004;
+      cursor: pointer; color: #333;
+    }
+    .print img, .print .ph { width: 100%; height: 110px; object-fit: cover; display: block; }
+    .contact-sheet .print { padding: 3px; }
+    .contact-sheet .print img, .contact-sheet .print .ph { height: 54px; }
+
+    /* Windows */
+    #windows { position: fixed; inset: 0; pointer-events: none; z-index: 50; }
+    .xp {
+      pointer-events: auto; position: absolute; min-width: 280px; max-width: min(560px, 92vw);
+      background: var(--win-face); border: 3px solid var(--blue-luna);
+      border-radius: 8px 8px 0 0; box-shadow: 6px 10px 24px var(--shadow);
+      display: flex; flex-direction: column; max-height: min(70vh, 520px);
+    }
+    .xp.max { inset: 8% 8% auto; max-width: none; width: auto; max-height: 80vh; }
+    .xp.min { display: none; }
+    .xp-title {
+      background: linear-gradient(#5A9CF5, #245EDC 55%, #0A246A);
+      color: #fff; font-weight: 700; font-size: 12px; padding: 5px 8px;
+      display: flex; align-items: center; gap: 8px; cursor: grab; text-shadow: 1px 1px #0A246A;
+    }
+    .xp-btns { margin-left: auto; display: flex; gap: 6px; align-items: center; }
+    .xp-btns button {
+      width: 22px; height: 22px; border-radius: 4px; border: 1px solid #0006; cursor: pointer;
+      box-shadow: inset 0 1px 0 #fff8; font-size: 14px; font-weight: 800; line-height: 1;
+      color: #123; padding: 0;
+    }
+    .xp-btns .mn { background: #ffd24a; }
+    .xp-btns .mx { background: #6BC72B; }
+    .xp-btns .cl { background: #e03a2a; color: #fff; font-size: 16px; }
+    .xp-body { padding: 10px; overflow: auto; font-size: 13px; }
+
+    #lightbox {
+      position: fixed; inset: 0; background: rgba(8,12,24,.82); z-index: 80;
+      display: none; flex-direction: column; align-items: center; justify-content: center;
+      color: #fff; padding: 16px;
+    }
+    #lightbox.on { display: flex; }
+    .lb-x {
+      position: absolute; top: 12px; right: 12px; width: 40px; height: 40px;
+      border: 0; border-radius: 8px; background: #e03a2a; color: #fff;
+      font-size: 28px; line-height: 1; cursor: pointer; font-weight: 700;
+      box-shadow: 0 2px 8px #0008;
+    }
+    #lightbox img, #lightbox .ph { max-width: min(900px, 92vw); max-height: 64vh; border: 10px solid #fff; }
+    .lb-nav { display: flex; gap: 8px; margin-top: 10px; }
+
+    #ctx {
+      position: fixed; z-index: 90; background: var(--win-face); border: 1px solid #333;
+      min-width: 160px; box-shadow: 3px 3px 0 #0004; display: none; padding: 4px;
+    }
+    #ctx.on { display: block; }
+    #ctx button { display: block; width: 100%; text-align: left; border: 0; background: none; padding: 6px 10px; cursor: pointer; color: inherit; }
+    #ctx button:hover { background: var(--blue-luna); color: #fff; }
+
+    .start-menu {
+      position: absolute; bottom: 40px; left: 8px; width: 240px; z-index: 60;
+      background: var(--win-face); border: 2px solid var(--blue-deep);
+      box-shadow: 4px 8px 16px var(--shadow); display: none;
+    }
+    .start-menu.on { display: block; }
+    .start-menu .head { background: linear-gradient(var(--blue-light), var(--blue-deep)); color: #fff; padding: 10px; font-weight: 800; }
+    .start-menu button { display: block; width: 100%; text-align: left; border: 0; background: none; padding: 8px 12px; cursor: pointer; color: inherit; }
+    .start-menu button:hover { background: var(--blue-luna); color: #fff; }
+
+    #buddy {
+      position: fixed; right: 16px; bottom: 70px; z-index: 55; width: 210px;
+      display: none;
+    }
+    #buddy.on { display: block; }
+    .buddy-face {
+      width: 64px; height: 64px; margin-left: auto; border-radius: 50%;
+      background: radial-gradient(circle at 35% 30%, #9cf, #245EDC);
+      box-shadow: 0 6px 0 #0004; position: relative;
+    }
+    .buddy-face::before, .buddy-face::after {
+      content: ""; position: absolute; width: 8px; height: 8px; background: #111; border-radius: 50%; top: 22px;
+    }
+    .buddy-face::before { left: 18px; }
+    .buddy-face::after { right: 18px; }
+    .bubble {
+      background: #fff8c8; color: #123; border: 1px solid #aa8; border-radius: 8px;
+      padding: 8px; font-size: 12px; margin-bottom: 6px; box-shadow: 2px 3px 0 #0003;
+    }
+
+    .mobile-dock {
+      display: none; position: fixed; left: 0; right: 0; bottom: 0; z-index: 70;
+      background: linear-gradient(#4d8af0, var(--task)); padding: 6px 8px calc(6px + env(safe-area-inset-bottom));
+      justify-content: space-around; gap: 6px;
+    }
+    .mobile-dock button {
+      flex: 1; background: linear-gradient(#d9f2ff, #6CB8FF); border: 1px solid #0A246A;
+      border-radius: 10px; padding: 8px 4px; font-weight: 800; font-size: 11px; color: #063;
+    }
+    .mobile-dock button.on { background: linear-gradient(#e8ffc8, #6BC72B); }
+
+    .plain {
+      position: relative; z-index: 5; max-width: 800px; margin: 0 auto;
+      background: #fff; color: #111; padding: 24px; overflow: auto; height: 100%;
+    }
+    body.plain-on #world, body.plain-on #windows, body.plain-on #buddy, body.plain-on .mobile-dock { display: none !important; }
+    body.plain-on { overflow: auto; background: #fff; }
+    body.plain-on .plain { display: block !important; }
+
+    .err404 { text-align: center; padding: 40px 10px; }
+    .ph {
+      display: grid; place-items: center; color: #fff; font-weight: 800; font-size: 13px;
+      background: linear-gradient(135deg, #245EDC, #6CB8FF 40%, #3a8a4a);
+    }
+
+    [data-mode="modern"] .aqua::after, [data-mode="modern"] .crt-fx { display: none; }
+    [data-mode="modern"] .y2k-title { filter: none; color: var(--ink); background: none; }
+    [data-mode="modern"] .tab, [data-mode="modern"] .aqua, [data-mode="modern"] .start {
+      border-radius: 6px; box-shadow: none; background: var(--blue-luna); color: #fff;
+    }
+    [data-mode="modern"] .sky, [data-mode="modern"] .wall, [data-mode="modern"] .desk,
+    [data-mode="modern"] .cork, [data-mode="modern"] .cds, [data-mode="modern"] .typewriter,
+    [data-mode="modern"] .camera { display: none; }
+    [data-mode="modern"] .monitor-wrap { width: 100%; bottom: 0; transform: none; left: 0; height: 100%; }
+    [data-mode="modern"] .crt { height: 100%; padding: 0; border-radius: 0; box-shadow: none; }
+    [data-mode="modern"] .screen { height: 100%; border: 0; }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { animation: none !important; transition: none !important; }
+      .crt-fx { display: none; }
+    }
+    @media (max-width: 1024px) {
+      .room { transform: scale(.92); }
+      .blog-layout { grid-template-columns: 1fr; }
+      .sidebar { width: 140px; }
+    }
+    @media (max-width: 640px) {
+      body { overflow: hidden; }
+      .sky, .wall, .cork, .poster, .desk, .cds, .notebook, .pen, .typewriter,
+      .camera, .album, .rolodex, .floppy, .lamp, .mug, .plant, .kbd, .mouse { display: none !important; }
+      #world { perspective: none; }
+      #scene, .room { transform: none !important; width: 100%; height: 100%; inset: 0; }
+      .monitor-wrap { left: 0; top: 0; transform: none !important; width: 100%; bottom: 0; height: 100%; }
+      .crt { height: 100%; padding: 0; border-radius: 0; box-shadow: none; }
+      .screen { height: 100%; border: 0; }
+      .brand, .led, .crt-fx { display: none; }
+      .sidebar { display: none; }
+      .sidebar.m-open { display: block; position: absolute; z-index: 8; top: 70px; bottom: 72px; left: 0; }
+      .os-tabs { display: none; }
+      .taskbar { display: none; }
+      .status { display: none; }
+      .addrbar label, #addr, [data-desk], [data-zoom] { display: none !important; }
+      #buddy { display: none !important; }
+      .os-tabs .tab { padding: 6px 10px; font-size: 11px; }
+      .hero { grid-template-columns: 1fr; }
+      .mobile-dock { display: flex; }
+      .taskbar { padding-bottom: 4px; }
+      #os { padding-bottom: 56px; }
+      .xp, .xp.max { inset: 0 !important; max-width: none; width: auto; max-height: none; height: auto; border-radius: 0; }
+      .flip:hover .flip-inner { transform: none; }
+    }
+  </style>
+</head>
+<body>
+  <a class="skip" href="#plain-content">Skip to plain content</a>
+  <div id="boot" role="dialog" aria-label="Boot sequence">
+    <div>ABDUL BIOS v4.02 2003</div>
+    <div>CPU: PORTFOLIO-32 &nbsp; RAM: 256MB OK</div>
+    <div>Detecting resume... found Abdul_Rehman_Resume_main(2).pdf</div>
+    <div>Loading Portfolio...</div>
+    <div class="bar"><div class="fill" id="bootfill"></div></div>
+    <button class="skip-boot" type="button" id="skipboot">Skip</button>
+  </div>
+
+  <div id="world">
+    <div class="sky" aria-hidden="true"></div>
+    <div id="scene">
+      <div class="room">
+        <div class="wall"></div>
+        <button class="cork hotspot" data-go="#/portfolio/about" aria-label="Corkboard, opens About">
+          <span class="note n1">About me</span>
+          <span class="note n2">SRM IST</span>
+          <span class="note n3">ML intern</span>
+        </button>
+        <div class="poster">PORTFOLIO<br/>2003<br/><span style="font-size:10px">Abdul Rehman</span></div>
+        <div class="desk"><div class="mat"></div></div>
+        <div class="plant" aria-hidden="true"><i class="leaf"></i><i class="leaf"></i><div class="pot"></div></div>
+        <button class="cds hotspot" data-go="#/portfolio/skills" aria-label="CD cases, opens Skills">
+          <div class="cd">Skills 2003 Edition</div>
+          <div class="cd">Python Mix</div>
+          <div class="cd">RAG Hits</div>
+        </button>
+        <button class="typewriter hotspot" data-go="#/blogs" aria-label="Typewriter, opens Blogs">
+          <div class="paper">blogs...</div>
+          <div class="platen"></div>
+        </button>
+        <button class="rolodex hotspot" data-go="#/portfolio/contact" aria-label="Rolodex, opens Contact"></button>
+        <a class="floppy hotspot" href="Abdul_Rehman_Resume_main(2).pdf" download aria-label="Floppy disk, download resume">
+          <span class="label">Resume.pdf</span>
+        </a>
+        <button class="notebook hotspot" data-go="#/portfolio/experience" aria-label="Notebook, opens Experience"></button>
+        <div class="pen" aria-hidden="true"></div>
+        <div class="lamp" aria-hidden="true"><span class="arm"></span><span class="head"></span><span class="cone"></span></div>
+        <button class="camera hotspot" data-go="#/photography" aria-label="Camera, opens Photography"><span class="lens"></span></button>
+        <div class="album" aria-hidden="true"></div>
+        <div class="mug" aria-hidden="true"></div>
+        <div class="kbd" aria-hidden="true">
+          <i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i>
+          <i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i>
+        </div>
+        <div class="mouse"><span class="cable"></span></div>
+        <div class="monitor-wrap">
+          <div class="crt">
+            <div class="screen" id="screen">
+              <div id="os"></div>
+            </div>
+            <div class="crt-fx"></div>
+            <div class="brand">ABDUL · PORTFOLIO 2003</div>
+            <button class="led" id="power" type="button" title="Power" aria-label="Power button easter egg"></button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div id="windows"></div>
+  <div id="lightbox" aria-modal="true" role="dialog"></div>
+  <div id="ctx" role="menu"></div>
+  <aside id="buddy" aria-label="Desktop helper">
+    <div class="bubble" id="buddytxt">Need a hand? Click the tabs, or press 1, 2, 3. I am Dot, not Clippy.</div>
+    <div class="buddy-face" title="Dot"></div>
+  </aside>
+  <nav class="mobile-dock" id="mdock" aria-label="Mobile tabs">
+    <button type="button" data-go="#/portfolio">Portfolio</button>
+    <button type="button" data-go="#/blogs">Blogs</button>
+    <button type="button" data-go="#/photography">Photos</button>
+  </nav>
+  <main id="plain-content" class="plain" hidden></main>
+
+  <script>
+  /* ========== DATA ========== */
+  const SITE_DATA = {
+    meta: {
+      name: "Abdul Rehman",
+      title: "ML Engineer & CS Undergraduate",
+      tagline: "From-scratch transformers, offline RAG, and production ML APIs.",
+      location: "[ADD CITY]",
+      email: "itsar2k3@gmail.com",
+      phone: "+91-817-589-4114",
+      siteTitle: "Abdul Rehman — Portfolio 2003",
+      photo: null
+    },
+    links: {
+      github: "https://github.com/abdul2048",
+      linkedin: "https://www.linkedin.com/in/abdul-rehman",
+      twitter: null,
+      other: []
+    },
+    portfolio: {
+      about: {
+        summary: "I'm Abdul Rehman, a final-year Computer Science and Engineering undergraduate at SRM Institute of Science & Technology. I work across machine learning and web development — training transformer models, building RAG systems, and shipping the APIs that serve them. I recently interned as an ML Engineer at ExamOnline in New Delhi, where I designed production inference APIs and grading models used across two exam categories.",
+        languages: "[ADD LANGUAGES]",
+        interests: ["Web development", "Competitive programming (LeetCode)", "Cricket", "Debate", "Painting", "Counter-Strike"],
+        clubs: ["Data Science Club", "IEEE Club"]
+      },
+      education: [
+        { exam: "Graduation", degree: "B.Tech, CSE", institute: "SRM Institute of Science & Technology", years: "2023–2027", grade: "8.6/10.0 CGPA" },
+        { exam: "Class XII", degree: "ICSE", institute: "City Montessori School", years: "2022", grade: "91.75%" },
+        { exam: "Class X", degree: "ICSE", institute: "City Montessori School", years: "2020", grade: "90%" }
+      ],
+      coursework: ["Data Structures and Algorithms", "Object-Oriented Programming", "Deep Learning", "Artificial Intelligence"],
+      experience: [
+        {
+          company: "ExamOnline",
+          title: "ML Engineer Intern",
+          dates: "Jun 2026 – Aug 2026",
+          location: "New Delhi",
+          bullets: [
+            "Designed and deployed scalable REST APIs for production ML inference with Docker and AWS, focused on fault-tolerant, low-latency, cost-effective serving.",
+            "Built and fine-tuned transformer NLP models for automated short-answer grading, and an adaptive question-difficulty model that improved grading agreement, cut manual review, and enabled personalized question selection.",
+            "Built pipelines to clean, preprocess, and version large-scale student data, and partnered with senior engineers and PMs on metrics and A/B tests that drove model improvements and adoption across two exam categories."
+          ]
+        }
+      ],
+      projects: [
+        {
+          slug: "askfileai",
+          title: "AskFileAI",
+          summary: "Local RAG-based AI file assistant",
+          description: "A fully offline assistant that answers questions across 22+ file types (docs, code, spreadsheets, images) with multi-file upload and conversation memory. Advanced RAG uses hybrid retrieval, LLM re-ranking, and GraphRAG with multi-hop entity traversal. A modular LangGraph pipeline (file loaders, embeddings, ChromaDB) sits behind a Streamlit chat UI with source attribution.",
+          role: "Builder",
+          tech: ["Python", "LangGraph", "Ollama", "Qwen2.5-7B", "LLaVA", "ChromaDB", "BM25", "GraphRAG", "Tesseract OCR", "Streamlit"],
+          outcomes: ["Works across 22+ file types", "Fully offline and private"],
+          github: "https://github.com/Abdul2048/askFileAI",
+          demo: null,
+          category: "GenAI"
+        },
+        {
+          slug: "vsmollm",
+          title: "VsmoLLM",
+          summary: "GPT-2 built from scratch",
+          description: "GPT-2 implemented from scratch in PyTorch, including token and position embeddings, causal multi-head attention, and Transformer blocks. Trained on WikiText-103 with FP16, gradient accumulation, AdamW, cosine LR scheduling, checkpointing, and GPU optimization. Training and evaluation pipelines use Hugging Face, YAML config, and Weights & Biases, reporting loss and perplexity.",
+          role: "Builder",
+          tech: ["PyTorch", "Hugging Face Datasets", "YAML", "Weights & Biases"],
+          outcomes: ["Trained on WikiText-103", "Logged loss and perplexity in W&B"],
+          github: null,
+          demo: null,
+          category: "ML"
+        },
+        {
+          slug: "brainfile",
+          title: "BrainFile",
+          summary: "Token-optimized codebase context CLI",
+          description: "A Groq-powered CLI that parses codebases with AST analysis and writes token-optimized context files (~2K tokens vs 15K+ raw), so AI agents can onboard across 7 languages much faster.",
+          role: "Builder",
+          tech: ["Python", "tree-sitter", "Groq API", "NetworkX", "Typer", "tiktoken"],
+          outcomes: ["~2K tokens vs 15K+ raw context", "81% accuracy on context relevance evaluation", "1st place, Cherry Network Hackathon"],
+          github: "https://github.com/Abdul2048/Brainfile",
+          demo: null,
+          category: "Tools"
+        }
+      ],
+      skills: {
+        categories: [
+          { name: "Languages & Web", items: [
+            { name: "Python", tier: "Advanced" }, { name: "C++", tier: "Proficient" },
+            { name: "JavaScript", tier: "Proficient" }, { name: "HTML", tier: "Proficient" },
+            { name: "CSS", tier: "Proficient" }, { name: "Node.js", tier: "Proficient" },
+            { name: "Express.js", tier: "Proficient" }, { name: "React.js", tier: "Proficient" }
+          ]},
+          { name: "Frameworks / ML", items: [
+            { name: "PyTorch", tier: "Advanced" }, { name: "Transformers", tier: "Advanced" },
+            { name: "LangGraph", tier: "Advanced" }, { name: "LangChain", tier: "Proficient" },
+            { name: "LlamaIndex", tier: "Familiar" }, { name: "Hugging Face", tier: "Advanced" },
+            { name: "OpenCV", tier: "Familiar" }, { name: "Scikit-learn", tier: "Proficient" },
+            { name: "Neural Networks", tier: "Advanced" }
+          ]},
+          { name: "GenAI / LLM", items: [
+            { name: "Prompt Engineering", tier: "Advanced" }, { name: "RAG", tier: "Advanced" },
+            { name: "Fine-tuning (LoRA/QLoRA)", tier: "Proficient" }, { name: "Agentic AI", tier: "Proficient" },
+            { name: "OpenAI API", tier: "Proficient" }, { name: "Anthropic API", tier: "Familiar" }
+          ]},
+          { name: "Databases", items: [
+            { name: "PostgreSQL", tier: "Proficient" }, { name: "SQL", tier: "Proficient" },
+            { name: "Pinecone", tier: "Familiar" }, { name: "ChromaDB", tier: "Advanced" },
+            { name: "FAISS", tier: "Familiar" }
+          ]},
+          { name: "Tools", items: [
+            { name: "Git", tier: "Advanced" }, { name: "GitHub", tier: "Advanced" },
+            { name: "Docker", tier: "Advanced" }, { name: "Kubernetes", tier: "Familiar" },
+            { name: "AWS", tier: "Proficient" }, { name: "MLflow", tier: "Familiar" },
+            { name: "Matplotlib", tier: "Proficient" }, { name: "Pandas", tier: "Advanced" },
+            { name: "NumPy", tier: "Advanced" }, { name: "VS Code", tier: "Advanced" },
+            { name: "Visual Studio", tier: "Familiar" }
+          ]}
+        ]
+      },
+      certifications: [
+        { name: "Machine Learning Specialization (3-course series)", org: "Andrew Ng / DeepLearning.AI" },
+        { name: "AWS Certified Solutions Architect", org: "Amazon Web Services" },
+        { name: "Machine Learning Certification", org: "IIT Kharagpur" },
+        { name: "Professional Generative AI Certification", org: "Oracle" },
+        { name: "Programming Languages — Python, C++", org: "[ADD ISSUER]" },
+        { name: "Full Stack Web Development Bootcamp", org: "Angela Yu" }
+      ],
+      achievements: [
+        { name: "1st Place, Cherry Network Hackathon", detail: "BrainFile — AI-powered CLI for token-optimized codebase context generation." },
+        { name: "Pre-finalist (Soar-3), Guidewire Hackathon 2026", detail: "" }
+      ],
+      leadership: [
+        { name: "Digital Literacy Outreach — Village Community", detail: "Taught basic computer literacy to 45+ residents: hardware fundamentals, software navigation, and internet usage." },
+        { name: "COVID-19 community support", detail: "Helped people with organization during COVID-19." },
+        { name: "Team Lead — ICPBSSC International Conference", detail: "Led 15 volunteers on event logistics, venue setup, scheduling, and on-ground operations." }
+      ],
+      extracurriculars: [
+        "Cricket Team", "Debate Club", "Ramanujan Mathematics Club",
+        "Won first prize in a painting competition", "Gaming: Counter-Strike"
+      ],
+      resume: { url: "Abdul_Rehman_Resume_main(2).pdf", fileName: "Abdul_Rehman_Resume.pdf" }
+    },
+    blogs: {
+      note: "I have not published posts here yet. These three entries are labeled [SAMPLE]. Replace them in SITE_DATA.blogs.posts.",
+      categories: ["ML", "Systems", "Notes"],
+      posts: [
+        {
+          slug: "building-gpt2-from-scratch",
+          title: "What building GPT-2 from scratch actually teaches you",
+          date: "2026-08-12",
+          category: "ML",
+          tags: ["PyTorch", "transformers", "SAMPLE"],
+          sample: true,
+          excerpt: "A sample post about attention, training loops, and why implementing GPT-2 by hand is a brutal but useful teacher.",
+          content: [
+            { type: "p", text: "[SAMPLE] This is placeholder writing so the blog layout works. Replace this post in SITE_DATA.blogs.posts. It is not a published article by Abdul." },
+            { type: "h", text: "Attention is just a careful softmax" },
+            { type: "p", text: "Causal masks, residual streams, and learning-rate schedules look simple in a paper and loud in a training log. This sample post exists to show headings, quotes, and code." },
+            { type: "quote", text: "If you cannot implement it, you do not yet own it." },
+            { type: "code", text: "attn = softmax(q @ k.T / sqrt(d) + causal_mask) @ v" },
+            { type: "ul", items: ["Embeddings first", "Then blocks", "Then the train loop"] }
+          ]
+        },
+        {
+          slug: "local-rag-without-a-cloud",
+          title: "Local RAG: keep the files on the machine",
+          date: "2026-07-02",
+          category: "Systems",
+          tags: ["RAG", "ChromaDB", "SAMPLE"],
+          sample: true,
+          excerpt: "Sample notes on hybrid retrieval, re-ranking, and why offline file Q&A is a product, not a demo.",
+          content: [
+            { type: "p", text: "[SAMPLE] Placeholder post. Swap this for a real write-up when you have one." },
+            { type: "p", text: "Hybrid search plus GraphRAG is how a local assistant can jump across documents instead of parroting a single chunk." },
+            { type: "h", text: "A tiny pipeline" },
+            { type: "code", text: "load -> chunk -> embed -> retrieve -> rerank -> generate" }
+          ]
+        },
+        {
+          slug: "hackathon-cli-context",
+          title: "Token budgets are a UX problem",
+          date: "2026-05-20",
+          category: "Notes",
+          tags: ["CLI", "hackathon", "SAMPLE"],
+          sample: true,
+          excerpt: "Sample post about shrinking a codebase into a few thousand tokens so an agent can actually start working.",
+          content: [
+            { type: "p", text: "[SAMPLE] Replace me. This page only proves that post view, tags, and code blocks work." },
+            { type: "p", text: "AST-aware context is less romantic than a giant paste, and much more useful." }
+          ]
+        }
+      ]
+    },
+    photography: {
+      note: "Replace a photo src with your image URL in SITE_DATA.photography.photos.",
+      categories: ["Nature", "Street", "Portrait"],
+      photos: [
+        { src: null, alt: "Placeholder photo 01, rolling light", caption: "Photo 01 — placeholder gradient", category: "Nature", date: "2026", location: "[ADD LOCATION]", exif: {} },
+        { src: null, alt: "Placeholder photo 02, green field", caption: "Photo 02 — placeholder gradient", category: "Nature", date: "2026", location: "[ADD LOCATION]", exif: {} },
+        { src: null, alt: "Placeholder photo 03, dusk hill", caption: "Photo 03 — placeholder gradient", category: "Nature", date: "2026", location: "[ADD LOCATION]", exif: {} },
+        { src: null, alt: "Placeholder photo 04, street corner", caption: "Photo 04 — placeholder gradient", category: "Street", date: "2026", location: "[ADD LOCATION]", exif: {} },
+        { src: null, alt: "Placeholder photo 05, neon sign", caption: "Photo 05 — placeholder gradient", category: "Street", date: "2026", location: "[ADD LOCATION]", exif: {} },
+        { src: null, alt: "Placeholder photo 06, portrait study", caption: "Photo 06 — placeholder gradient", category: "Portrait", date: "2026", location: "[ADD LOCATION]", exif: {} },
+        { src: null, alt: "Placeholder photo 07, window light", caption: "Photo 07 — placeholder gradient", category: "Portrait", date: "2026", location: "[ADD LOCATION]", exif: {} },
+        { src: null, alt: "Placeholder photo 08, profile", caption: "Photo 08 — placeholder gradient", category: "Portrait", date: "2026", location: "[ADD LOCATION]", exif: {} }
+      ]
+    },
+    guestbook: [
+      { name: "Ada (sample)", date: "01 Apr 2003", text: "[SAMPLE] Neat site — love the CRT glow." },
+      { name: "Linus (sample)", date: "02 Apr 2003", text: "[SAMPLE] Sign my guestbook and I will sign yours." },
+      { name: "Geocities Fan (sample)", date: "03 Apr 2003", text: "[SAMPLE] Best viewed in 1024×768." }
+    ],
+    settings: { soundDefault: false, defaultTab: "portfolio", defaultMode: "y2k" }
+  };
+
+  /* ========== CONFIG ========== */
+  const CONFIG = {
+    reduced: matchMedia("(prefers-reduced-motion: reduce)").matches,
+    mobile: () => matchMedia("(max-width: 640px)").matches,
+    resumeUrl: SITE_DATA.portfolio.resume.url
+  };
+
+  const TIER = { Familiar: 1, Proficient: 2, Advanced: 3 };
+  const state = {
+    theme: matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light",
+    mode: SITE_DATA.settings.defaultMode,
+    muted: true,
+    soundOn: SITE_DATA.settings.soundDefault,
+    zoomed: false,
+    z: 50,
+    wins: [],
+    boot: true,
+    status: "Ready.",
+    visitors: 128,
+    route: { tab: "portfolio", rest: [] },
+    projectFilter: "All",
+    blogFilter: "All",
+    blogQuery: "",
+    blogPage: 1,
+    photoFilter: "All",
+    contactSheet: false,
+    slide: false,
+    lb: null,
+    konami: []
+  };
+
+  /* ========== HELPERS ========== */
+  const $ = (s, r=document) => r.querySelector(s);
+  const $$ = (s, r=document) => [...r.querySelectorAll(s)];
+  function esc(s) {
+    return String(s ?? "").replace(/[&<>"']/g, c => ({ "&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;","'":"&#39;" }[c]));
+  }
+  function words(blocks) {
+    return blocks.map(b => (b.text || (b.items||[]).join(" ") || "")).join(" ").split(/\s+/).filter(Boolean).length;
+  }
+  function readTime(n) { return Math.max(1, Math.round(n / 180)) + " min read"; }
+  function phSvg(label, i) {
+    const hues = [210, 140, 20, 280, 190, 330, 50, 160];
+    const h = hues[i % hues.length];
+    const svg = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300"><defs><linearGradient id="g" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="hsl(${h},70%,46%)"/><stop offset="1" stop-color="hsl(${(h+40)%360},60%,28%)"/></linearGradient></defs><rect width="400" height="300" fill="url(#g)"/><circle cx="80" cy="70" r="36" fill="rgba(255,255,255,.25)"/><text x="200" y="158" text-anchor="middle" fill="white" font-size="22" font-family="Tahoma">${esc(label)}</text></svg>`;
+    return "data:image/svg+xml," + encodeURIComponent(svg);
+  }
+  function photoSrc(p, i) { return p.src || phSvg(p.caption.split("—")[0].trim() || "Photo", i); }
+  function go(hash) {
+    const h = hash.startsWith("#") ? hash : "#" + hash;
+    if (location.hash !== h) location.hash = h;
+    applyRoute();
+  }
+  function setStatus(t) { state.status = t; const el = $("#stmsg"); if (el) el.textContent = t; }
+
+  /* ========== AUDIO ========== */
+  let actx;
+  function beep(freq=440, dur=0.08, type="square", vol=0.03) {
+    if (state.muted || !state.soundOn) return;
+    try {
+      actx = actx || new (window.AudioContext || window.webkitAudioContext)();
+      const o = actx.createOscillator();
+      const g = actx.createGain();
+      o.type = type; o.frequency.value = freq;
+      g.gain.value = vol; o.connect(g); g.connect(actx.destination);
+      o.start(); o.stop(actx.currentTime + dur);
+    } catch (e) {}
+  }
+
+  /* ========== ROUTER ========== */
+  function parseHash() {
+    const raw = (location.hash || "#/portfolio").replace(/^#/, "");
+    const parts = raw.split("/").filter(Boolean);
+    const tab = parts[0] || "portfolio";
+    return { tab, rest: parts.slice(1), raw };
+  }
+  function applyRoute() {
+    const prev = state.route;
+    state.route = parseHash();
+    const { tab, rest } = state.route;
+    document.title = ({
+      portfolio: SITE_DATA.meta.name + " — Portfolio",
+      blogs: SITE_DATA.meta.name + " — Blog",
+      photography: SITE_DATA.meta.name + " — Photography",
+      plain: SITE_DATA.meta.name + " — Plain version",
+      sitemap: SITE_DATA.meta.name + " — Sitemap"
+    }[tab] || SITE_DATA.meta.name + " — 404");
+    $("meta[name=description]").setAttribute("content", SITE_DATA.meta.tagline);
+    document.body.classList.toggle("plain-on", tab === "plain");
+    if (tab === "plain") { renderPlain(); return; }
+
+    const stay = prev.tab === "portfolio" && tab === "portfolio" && $("#sec-home") && $("#view");
+    if (!stay) renderOS();
+    else {
+      const sec = rest[0] || "home";
+      $$(".nav-btn").forEach(b => b.classList.toggle("on", (b.getAttribute("data-go") || "").endsWith("/" + sec)));
+      const addr = $("#addr"); if (addr) addr.value = addrFor(state.route);
+      const cr = $(".crumb"); if (cr) cr.innerHTML = esc(crumb()) + ' · <span id="stmsg">' + esc(state.status) + "</span>";
+      $$(".tab").forEach(t => t.classList.toggle("on", t.getAttribute("data-go") === "#/" + tab));
+    }
+
+    if (tab === "portfolio" && rest[0]) {
+      const jump = () => {
+        const view = $("#view");
+        const node = document.getElementById("sec-" + rest[0]);
+        if (!view || !node) return;
+        view.scrollTop = Math.max(0, node.offsetTop - 8);
+      };
+      jump();
+      setTimeout(jump, 30);
+      setTimeout(jump, 120);
+    } else if (tab === "portfolio") {
+      const view = $("#view");
+      if (view) view.scrollTop = 0;
+    }
+  }
+
+  /* ========== WINDOW MANAGER ========== */
+  function openWin(id, title, html) {
+    let w = state.wins.find(x => x.id === id);
+    if (w) { w.min = false; renderWindows(); focusWin(id); return; }
+    const n = state.wins.length;
+    w = { id, title, html, x: 48 + n * 28, y: 64 + n * 24, z: ++state.z, min: false, max: false };
+    state.wins.push(w);
+    beep(660, .05);
+    renderWindows();
+  }
+  function closeWin(id) { state.wins = state.wins.filter(w => w.id !== id); renderWindows(); }
+  function focusWin(id) {
+    const w = state.wins.find(x => x.id === id); if (!w) return;
+    w.z = ++state.z; w.min = false; renderWindows();
+  }
+  function renderWindows() {
+    const root = $("#windows");
+    root.innerHTML = state.wins.filter(w => !w.min).map(w => `
+      <div class="xp ${w.max ? "max":""}" data-id="${esc(w.id)}" style="left:${w.x}px;top:${w.y}px;z-index:${w.z}" role="dialog" aria-labelledby="t-${esc(w.id)}">
+        <div class="xp-title" id="t-${esc(w.id)}"><span>${esc(w.title)}</span>
+          <div class="xp-btns">
+            <button class="mn" type="button" aria-label="Minimize" data-act="min">–</button>
+            <button class="mx" type="button" aria-label="Maximize" data-act="max">□</button>
+            <button class="cl" type="button" aria-label="Close" data-act="close">×</button>
+          </div>
+        </div>
+        <div class="xp-body">${w.html}</div>
+      </div>`).join("");
+    $$(".xp", root).forEach(el => bindWin(el));
+    const tb = $("#tbwins");
+    if (tb) tb.innerHTML = state.wins.map(w => `<button class="tb-win" type="button" data-focus="${esc(w.id)}">${esc(w.title)}</button>`).join("");
+  }
+  function bindWin(el) {
+    const id = el.dataset.id;
+    el.addEventListener("pointerdown", e => {
+      if (e.target.closest("[data-act]")) return;
+      const w = state.wins.find(x => x.id === id);
+      if (!w) return;
+      w.z = ++state.z;
+      el.style.zIndex = w.z;
+    });
+    const bar = el.querySelector(".xp-title");
+    let drag = null;
+    bar.addEventListener("pointerdown", e => {
+      if (e.target.closest("button") || CONFIG.mobile()) return;
+      const w = state.wins.find(x => x.id===id);
+      drag = { x: e.clientX - w.x, y: e.clientY - w.y };
+      bar.setPointerCapture(e.pointerId);
+    });
+    bar.addEventListener("pointermove", e => {
+      if (!drag) return;
+      const w = state.wins.find(x => x.id===id);
+      w.x = Math.max(0, e.clientX - drag.x); w.y = Math.max(0, e.clientY - drag.y);
+      el.style.left = w.x + "px"; el.style.top = w.y + "px";
+    });
+    bar.addEventListener("pointerup", () => drag = null);
+    el.addEventListener("click", e => {
+      const g = e.target.closest("[data-go]");
+      if (g) go(g.dataset.go);
+    });
+  }
+
+  /* ========== TAB: PORTFOLIO ========== */
+  function meter(tier) {
+    const n = TIER[tier] || 1;
+    return `<span class="meter t-${esc(tier)}" aria-label="${esc(tier)}">${[1,2,3].map(i => `<b class="${i<=n?"on":""}"></b>`).join("")}</span>`;
+  }
+  function renderPortfolio() {
+    const d = SITE_DATA;
+    const p = d.portfolio;
+    const sec = state.route.rest[0] || "home";
+    const techs = ["All", ...new Set(p.projects.flatMap(x => x.tech))];
+    const filtered = p.projects.filter(pr => state.projectFilter === "All" || pr.tech.includes(state.projectFilter) || pr.category === state.projectFilter);
+    return `
+      <div class="os-body">
+        <nav class="sidebar" aria-label="Portfolio sections">
+          <h4>My Places</h4>
+          ${["home","about","education","experience","projects","skills","certs","leadership","extras","resume","contact"].map(k =>
+            `<button class="nav-btn ${sec===k||(!state.route.rest[0]&&k==="home")?"on":""}" type="button" data-go="#/portfolio/${k}">${
+              {home:"Home",about:"About",education:"Education",experience:"Experience",projects:"Projects",skills:"Skills",certs:"Certs & Awards",leadership:"Leadership",extras:"Extracurriculars",resume:"Resume",contact:"Contact"}[k]
+            }</button>`).join("")}
+        </nav>
+        <div id="view">
+          <section id="sec-home" class="panel">
+            <div class="hero">
+              <div class="polaroid">
+                <div class="badge-face">${d.meta.photo ? `<img src="${esc(d.meta.photo)}" alt="Portrait of ${esc(d.meta.name)}">` : "[ADD PHOTO]"}</div>
+                ID · ${esc(d.meta.name)}
+              </div>
+              <div>
+                <p class="blink">NEW! Welcome.exe</p>
+                <h1 class="y2k-title">${esc(d.meta.name)}</h1>
+                <p><strong>${esc(d.meta.title)}</strong></p>
+                <p class="tagline">${esc(d.meta.tagline)}</p>
+                <p class="muted">${esc(d.meta.email)} · ${esc(d.meta.phone)} · ${esc(d.meta.location)}</p>
+                <div class="row">
+                  <button class="aqua" data-go="#/portfolio/projects">View Projects</button>
+                  <a class="aqua alt" href="${esc(p.resume.url)}" download>Download Resume</a>
+                  <button class="aqua warn" data-go="#/portfolio/contact">Contact Me</button>
+                </div>
+              </div>
+            </div>
+          </section>
+          <section id="sec-about" class="panel">
+            <h2 class="section-h">About me</h2>
+            <p>${esc(p.about.summary)}</p>
+            <p><strong>Languages:</strong> ${esc(p.about.languages)}</p>
+            <p><strong>Clubs:</strong> ${p.about.clubs.map(esc).join(", ")}</p>
+            <p><strong>Interests:</strong> ${p.about.interests.map(esc).join(" · ")}</p>
+          </section>
+          <section id="sec-education" class="panel">
+            <h2 class="section-h">Education</h2>
+            <table class="edu"><thead><tr><th>Examination</th><th>Degree</th><th>Institute</th><th>Year</th><th>Grade</th></tr></thead>
+            <tbody>${p.education.map(e => `<tr><td>${esc(e.exam)}</td><td>${esc(e.degree)}</td><td>${esc(e.institute)}</td><td>${esc(e.years)}</td><td>${esc(e.grade)}</td></tr>`).join("")}</tbody></table>
+            <p><strong>Relevant coursework:</strong> ${p.coursework.map(esc).join(" · ")}</p>
+          </section>
+          <section id="sec-experience" class="panel">
+            <h2 class="section-h">Experience</h2>
+            <div class="tl">${p.experience.map(e => `
+              <article>
+                <h3>${esc(e.title)} · ${esc(e.company)}</h3>
+                <p class="muted">${esc(e.dates)} · ${esc(e.location)}</p>
+                <ul>${e.bullets.map(b => `<li>${esc(b)}</li>`).join("")}</ul>
+              </article>`).join("")}</div>
+          </section>
+          <section id="sec-projects" class="panel">
+            <h2 class="section-h">Projects</h2>
+            <div class="filters">${techs.slice(0, 18).map(t => `<button class="chip ${state.projectFilter===t?"on":""}" data-filter="${esc(t)}" type="button">${esc(t)}</button>`).join("")}</div>
+            <div class="grid">${filtered.map((pr,i) => `
+              <div class="flip" data-slug="${esc(pr.slug)}">
+                <div class="flip-inner">
+                  <div class="face front">
+                    <div class="faux">${esc(pr.title)}</div>
+                    <strong>${esc(pr.title)}</strong>
+                    <p class="muted">${esc(pr.summary)}</p>
+                  </div>
+                  <div class="face back">
+                    <strong>${esc(pr.title)}</strong>
+                    <div class="pills" style="margin:8px 0">${pr.tech.slice(0,6).map(t => `<span class="pill">${esc(t)}</span>`).join("")}</div>
+                    ${pr.github ? `<a class="aqua" href="${esc(pr.github)}" target="_blank" rel="noopener">GitHub</a>` : `<span class="pill">[ADD GITHUB LINK]</span>`}
+                    <p>${pr.demo ? `<a class="aqua" href="${esc(pr.demo)}" target="_blank" rel="noopener">Live Demo</a>` : `<span class="muted">[ADD LIVE DEMO]</span>`}</p>
+                    <button class="aqua alt" data-open-project="${esc(pr.slug)}" type="button">Open window</button>
+                  </div>
+                </div>
+              </div>`).join("")}</div>
+          </section>
+          <section id="sec-skills" class="panel">
+            <h2 class="section-h">Skills</h2>
+            <div class="skills-legend">
+              <strong>Explorer · nested structure</strong>
+              <span class="key">${meter("Advanced")} <span class="tier-badge Advanced">Advanced</span></span>
+              <span class="key">${meter("Proficient")} <span class="tier-badge Proficient">Proficient</span></span>
+              <span class="key">${meter("Familiar")} <span class="tier-badge Familiar">Familiar</span></span>
+            </div>
+            <div class="skill-map">${p.skills.categories.map(c => `<span>${esc(c.name)} (${c.items.length})</span>`).join("")}</div>
+            <div class="skill-tree">
+              <div class="tree-root">My Computer \\ Skills</div>
+              ${p.skills.categories.map(c => {
+                const tiers = ["Advanced", "Proficient", "Familiar"];
+                return `<details class="tree-folder" open>
+                  <summary>${esc(c.name)} — ${c.items.length} skills</summary>
+                  ${tiers.map(tier => {
+                    const items = c.items.filter(it => it.tier === tier);
+                    if (!items.length) return "";
+                    return `<div class="tree-tier">
+                      <div class="tree-tier-h">${esc(tier)} (${items.length})</div>
+                      ${items.map(it => `<div class="skill-row">
+                        <span class="name">${esc(it.name)}</span>
+                        ${meter(it.tier)}
+                        <span class="tier-badge ${esc(it.tier)}">${esc(it.tier)}</span>
+                      </div>`).join("")}
+                    </div>`;
+                  }).join("")}
+                </details>`;
+              }).join("")}
+            </div>
+          </section>
+          <section id="sec-certs" class="panel">
+            <h2 class="section-h">Certifications & achievements</h2>
+            <div class="certs">${p.certifications.map(c => `<div class="frame"><div class="inner"><strong>${esc(c.name)}</strong><p class="muted">${esc(c.org)}</p></div></div>`).join("")}</div>
+            <h3>Trophy shelf</h3>
+            <div class="shelf">${p.achievements.map(a => `<div class="trophy"><div class="cup"></div>${esc(a.name)}</div>`).join("")}</div>
+            ${p.achievements.map(a => `<p><strong>${esc(a.name)}</strong>${a.detail ? " — " + esc(a.detail) : ""}</p>`).join("")}
+            <div class="badges">
+              <div class="b88" style="background:#00f">Made with ♥</div>
+              <div class="b88" style="background:#000">1024×768</div>
+              <div class="b88" style="background:#fc0;color:#000">HTML OK</div>
+              <div class="b88" style="background:#c00">Y2K ready</div>
+            </div>
+          </section>
+          <section id="sec-leadership" class="panel">
+            <h2 class="section-h">Leadership</h2>
+            <ul>${p.leadership.map(l => `<li><strong>${esc(l.name)}</strong> — ${esc(l.detail)}</li>`).join("")}</ul>
+          </section>
+          <section id="sec-extras" class="panel">
+            <h2 class="section-h">Extracurriculars</h2>
+            <ul>${p.extracurriculars.map(x => `<li>${esc(x)}</li>`).join("")}</ul>
+          </section>
+          <section id="sec-resume" class="panel">
+            <h2 class="section-h">Resume</h2>
+            <a class="aqua alt" href="${esc(p.resume.url)}" download>Download ${esc(p.resume.fileName)}</a>
+            <p class="muted">Inline preview (PDF in this folder):</p>
+            <iframe title="Resume preview" src="${esc(p.resume.url)}" style="width:100%;height:360px;border:2px solid #888;background:#fff"></iframe>
+          </section>
+          <section id="sec-contact" class="panel">
+            <h2 class="section-h">Contact</h2>
+            <div class="mail">
+              <div class="mh">Outlook Express 2003 — New Message</div>
+              <div class="rowf"><span>To:</span><input value="${esc(d.meta.email)}" readonly></div>
+              <div class="rowf"><span>Subject:</span><input id="msub" value="Hello from your portfolio"></div>
+              <div class="rowf"><span>Body:</span><textarea id="mbody">Hi Abdul,</textarea></div>
+              <p style="padding:8px"><a class="aqua" id="mailto" href="mailto:${esc(d.meta.email)}">Send (mailto)</a></p>
+            </div>
+            <div class="row" style="margin-top:10px">
+              <a class="aqua" href="${esc(d.links.github)}" target="_blank" rel="noopener">GitHub</a>
+              <a class="aqua" href="${esc(d.links.linkedin)}" target="_blank" rel="noopener">LinkedIn</a>
+              <a class="aqua" href="tel:${esc(d.meta.phone)}">Call</a>
+              ${d.links.twitter ? `<a class="aqua" href="${esc(d.links.twitter)}">Twitter</a>` : `<span class="muted">[ADD TWITTER]</span>`}
+            </div>
+            <h3>Guestbook (decorative — not stored)</h3>
+            <div class="gb">${d.guestbook.map(g => `<article><strong>${esc(g.name)}</strong> <span class="muted">${esc(g.date)}</span><p>${esc(g.text)}</p></article>`).join("")}</div>
+            <p class="muted">Entries are sample-only. Nothing you type here is saved.</p>
+          </section>
+        </div>
+      </div>`;
+  }
+
+  /* ========== TAB: BLOGS ========== */
+  function renderBlocks(blocks) {
+    return blocks.map(b => {
+      if (b.type === "h") return `<h3>${esc(b.text)}</h3>`;
+      if (b.type === "quote") return `<blockquote class="panel">${esc(b.text)}</blockquote>`;
+      if (b.type === "code") return `<pre class="codewin">${esc(b.text)}</pre>`;
+      if (b.type === "ul") return `<ul>${b.items.map(i => `<li>${esc(i)}</li>`).join("")}</ul>`;
+      if (b.type === "img") return `<img alt="${esc(b.alt||"")}" src="${esc(b.src)}" style="max-width:100%">`;
+      return `<p>${esc(b.text)}</p>`;
+    }).join("");
+  }
+  function renderBlogs() {
+    const B = SITE_DATA.blogs;
+    const slug = state.route.rest[0];
+    const posts = B.posts.slice().sort((a,b) => b.date.localeCompare(a.date));
+    const cats = ["All", ...B.categories];
+    let list = posts.filter(p => (state.blogFilter==="All" || p.category===state.blogFilter || p.tags.includes(state.blogFilter)));
+    if (state.blogQuery) {
+      const q = state.blogQuery.toLowerCase();
+      list = list.filter(p => (p.title + p.excerpt + p.tags.join(" ")).toLowerCase().includes(q));
+    }
+    const pageSize = 6;
+    const page = list.slice(0, state.blogPage * pageSize);
+    if (slug) {
+      const i = posts.findIndex(p => p.slug === slug);
+      const post = posts[i];
+      if (!post) return render404();
+      const prev = posts[i+1], next = posts[i-1];
+      return `<div id="view">
+        <div class="blog-banner">My Blog</div>
+        <p class="crumb">Home &gt; Blogs &gt; ${esc(post.title)}</p>
+        <button class="aqua" data-go="#/blogs" type="button">Back to all posts</button>
+        <h1>${esc(post.title)} ${post.sample ? "<span class='blink'>[SAMPLE]</span>":""}</h1>
+        <p class="muted">${esc(post.date)} · ${esc(post.category)} · ${readTime(words(post.content))} · ${post.tags.map(esc).join(", ")}</p>
+        ${renderBlocks(post.content)}
+        <p><button class="aqua" type="button" data-copy="${esc(location.origin + location.pathname + "#/blogs/" + post.slug)}">Copy link</button></p>
+        <p class="muted">Comments are disabled in this demo.</p>
+        <p>${prev ? `<a href="#/blogs/${prev.slug}">« ${esc(prev.title)}</a>` : ""} ${next ? `<a href="#/blogs/${next.slug}" style="float:right">${esc(next.title)} »</a>` : ""}</p>
+      </div>`;
+    }
+    const counts = {};
+    posts.forEach(p => counts[p.category] = (counts[p.category]||0)+1);
+    return `<div id="view">
+      <div class="blog-banner">My Blog <span class="blink">[SAMPLE]</span></div>
+      <p class="panel">${esc(B.note)}</p>
+      <div class="blog-layout">
+        <div>
+          <div class="filters">${cats.map(c => `<button class="chip ${state.blogFilter===c?"on":""}" data-blogcat="${esc(c)}" type="button">${esc(c)}</button>`).join("")}</div>
+          ${page.map(p => `
+            <article class="post-card">
+              <h3><a href="#/blogs/${esc(p.slug)}" data-go="#/blogs/${esc(p.slug)}">${esc(p.title)}</a> ${p.sample?"<span class='blink'>[SAMPLE]</span>":""}</h3>
+              <p class="muted">${esc(p.date)} · <span class="pill">${esc(p.category)}</span> · ${readTime(words(p.content))}</p>
+              <p>${esc(p.excerpt)}</p>
+              <a href="#/blogs/${esc(p.slug)}" data-go="#/blogs/${esc(p.slug)}">Read more &gt;&gt;</a>
+            </article>`).join("")}
+          ${list.length > page.length ? `<button class="aqua" type="button" id="loadmore">Load more</button>`:""}
+        </div>
+        <aside class="panel">
+          <h4>About the author</h4>
+          <p>${esc(SITE_DATA.meta.name)} — ${esc(SITE_DATA.meta.title)}.</p>
+          <h4>Search this blog</h4>
+          <input id="blogq" value="${esc(state.blogQuery)}" placeholder="Search...">
+          <h4>Categories</h4>
+          ${B.categories.map(c => `<div>${esc(c)} (${counts[c]||0})</div>`).join("")}
+          <h4>Tag cloud</h4>
+          <div class="pills">${[...new Set(posts.flatMap(p=>p.tags))].map(t => `<button class="chip" data-blogcat="${esc(t)}" type="button">${esc(t)}</button>`).join("")}</div>
+          <h4>Archive</h4>
+          ${[...new Set(posts.map(p => p.date.slice(0,7)))].map(m => `<div>${esc(m)}</div>`).join("")}
+          <p><button class="aqua warn" type="button" data-rss>RSS.xml</button></p>
+          <h4>Recent comments</h4>
+          <p class="muted">[SAMPLE] “Nice CRT.” — Ada<br>[SAMPLE] No real comments are stored.</p>
+        </aside>
+      </div>
+    </div>`;
+  }
+
+  /* ========== TAB: PHOTOGRAPHY ========== */
+  function visiblePhotos() {
+    const all = SITE_DATA.photography.photos || [];
+    if (state.photoFilter === "All") return all;
+    return all.filter(p => p.category === state.photoFilter);
+  }
+  function renderPhotography() {
+    const P = SITE_DATA.photography;
+    const cats = ["All", ...P.categories];
+    const photos = visiblePhotos();
+    return `<div id="view">
+      <div class="blog-banner">Photography ⌯ <span class="blink">[SAMPLE]</span></div>
+      <p class="panel">${esc(P.note)}</p>
+      <div class="filters">${cats.map(c => `<button class="chip ${state.photoFilter===c?"on":""}" data-photocat="${esc(c)}" type="button">${esc(c)}</button>`).join("")}
+        <button class="chip ${state.contactSheet?"on":""}" data-sheet type="button">Contact sheet</button>
+      </div>
+      <p class="muted">${photos.length} photo${photos.length===1?"":"s"}</p>
+      <div class="prints ${state.contactSheet?"contact-sheet":""}">${photos.map((p,i) => `
+        <figure class="print" style="transform:rotate(${(i%2?2:-2)}deg)" data-lb-idx="${i}">
+          ${p.src ? `<img loading="lazy" alt="${esc(p.alt)}" src="${esc(p.src)}">` : `<div class="ph" style="height:110px">${esc("Photo 0"+(i+1))}</div>`}
+          <figcaption>${esc(p.caption)}</figcaption>
+        </figure>`).join("")}</div>
+    </div>`;
+  }
+
+  function openLightbox(idx) {
+    const list = visiblePhotos();
+    if (!list[idx]) return;
+    state.lb = { list, idx };
+    drawLightbox();
+  }
+  function drawLightbox() {
+    const lb = $("#lightbox");
+    if (!state.lb) { lb.classList.remove("on"); lb.innerHTML = ""; return; }
+    const { list, idx } = state.lb;
+    const p = list[idx];
+    const src = p.src || phSvg("Photo 0" + (idx+1), idx);
+    const ex = p.exif && p.exif.camera ? `${esc(p.exif.camera)} · ${esc(p.exif.lens||"")} · ISO ${esc(p.exif.iso||"—")} · ${esc(p.exif.shutter||"")} · ${esc(p.exif.aperture||"")}` : "";
+    lb.classList.add("on");
+    lb.innerHTML = `
+      <button class="lb-x" type="button" data-lbclose aria-label="Close">×</button>
+      ${p.src ? `<img alt="${esc(p.alt)}" src="${esc(src)}">` : `<div class="ph" style="width:min(720px,90vw);height:50vh">${esc(p.caption)}</div>`}
+      <h3>${esc(p.caption)}</h3>
+      <p>${esc(p.category || "")} · ${esc(p.date || "")} · ${esc(p.location || "")}</p>
+      ${ex ? `<p class="muted">${ex}</p>`:""}
+      <div class="lb-nav">
+        <button class="aqua" type="button" data-lbstep="-1">Prev</button>
+        <button class="aqua" type="button" data-lbstep="1">Next</button>
+        <button class="aqua alt" type="button" data-slide>${state.slide?"Pause":"Slideshow"}</button>
+        <button class="aqua warn" type="button" data-lbclose>Close</button>
+      </div>
+      <div class="row">${list.map((x,i)=>`<button class="chip ${i===idx?"on":""}" data-lbidx="${i}" type="button">${i+1}</button>`).join("")}</div>`;
+  }
+  function lbStep(n) {
+    if (!state.lb) return;
+    const len = state.lb.list.length;
+    state.lb.idx = (state.lb.idx + n + len) % len;
+    drawLightbox();
+  }
+
+  function render404() {
+    return `<div class="err404" id="view">
+      <h1 class="y2k-title">404</h1>
+      <p>Page not found, but I am!</p>
+      <p class="muted">That link is a dead placeholder or a bad address.</p>
+      <button class="aqua" data-go="#/portfolio" type="button">Back to desktop</button>
+    </div>`;
+  }
+  function renderSitemap() {
+    return `<div id="view" class="panel">
+      <h2>Site map</h2>
+      <ul>
+        <li><a href="#/portfolio">Portfolio</a>
+          <ul>${["home","about","education","experience","projects","skills","certs","leadership","extras","resume","contact"].map(s => `<li><a href="#/portfolio/${s}">${s}</a></li>`).join("")}
+            ${SITE_DATA.portfolio.projects.map(p => `<li><a href="#/portfolio/projects">${esc(p.title)}</a></li>`).join("")}
+          </ul>
+        </li>
+        <li><a href="#/blogs">Blogs</a><ul>${SITE_DATA.blogs.posts.map(p => `<li><a href="#/blogs/${p.slug}">${esc(p.title)}</a></li>`).join("")}</ul></li>
+        <li><a href="#/photography">Photography</a></li>
+        <li><a href="#/plain">Plain version</a></li>
+      </ul>
+    </div>`;
+  }
+
+  /* ========== OS CHROME ========== */
+  function addrFor(route) {
+    const host = "www.abdulrehman.com";
+    if (route.tab === "blogs") return route.rest[0] ? `${host}/blogs/${route.rest[0]}` : `${host}/blogs`;
+    if (route.tab === "photography") return `${host}/photography`;
+    if (route.tab === "sitemap") return `${host}/sitemap`;
+    return route.rest[0] ? `${host}/portfolio/${route.rest[0]}` : `${host}/portfolio`;
+  }
+  function crumb() {
+    const r = state.route;
+    if (r.tab === "blogs") return "Home > Blogs" + (r.rest[0] ? " > Post" : "");
+    if (r.tab === "photography") return "Home > Photography";
+    if (r.tab === "sitemap") return "Home > Sitemap";
+    return "Home > Portfolio" + (r.rest[0] ? " > " + r.rest[0] : "");
+  }
+  function renderOS() {
+    const r = state.route;
+    const valid = ["portfolio","blogs","photography","sitemap"];
+    let body;
+    if (r.tab === "portfolio") body = renderPortfolio();
+    else if (r.tab === "blogs") body = renderBlogs();
+    else if (r.tab === "photography") body = renderPhotography();
+    else if (r.tab === "sitemap") body = renderSitemap();
+    else body = render404();
+    const clock = new Date().toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" });
+    $("#os").innerHTML = `
+      <div class="os-tabs" role="tablist">
+        <button class="tab ${r.tab==="portfolio"?"on":""}" role="tab" data-go="#/portfolio">Portfolio</button>
+        <button class="tab ${r.tab==="blogs"?"on":""}" role="tab" data-go="#/blogs">Blogs</button>
+        <button class="tab ${r.tab==="photography"?"on":""}" role="tab" data-go="#/photography">Photography</button>
+      </div>
+      <div class="addrbar">
+        ${r.tab==="portfolio" && CONFIG.mobile() ? `<button class="icon-btn" type="button" data-side>☰</button>`:""}
+        <label>Address</label>
+        <input id="addr" value="${esc(addrFor(r))}" readonly>
+        <input id="q" type="search" placeholder="Search projects, posts, albums..." aria-label="Site search">
+        ${!CONFIG.mobile() ? (!state.zoomed ? `<button class="icon-btn" type="button" data-zoom>Full screen</button>` : `<button class="icon-btn" type="button" data-desk>Back to desk</button>`) : ""}
+        <button class="theme-toggle" type="button" data-theme-btn aria-label="Toggle light and dark mode">${state.theme==="light"?"Dark mode":"Light mode"}</button>
+      </div>
+      <div class="crumb">${esc(crumb())} · <span id="stmsg">${esc(state.status)}</span></div>
+      ${body}
+      <div class="taskbar">
+        <button class="start" type="button" data-start>Start</button>
+        <div class="tb-wins" id="tbwins"></div>
+        <div class="tray">
+          <button type="button" data-mode-btn>${state.mode==="y2k"?"Modern":"Y2K"}</button>
+          <button type="button" data-mute>${state.muted?"Unmute":"Mute"}</button>
+          <span title="Decorative clock">${esc(clock)}</span>
+        </div>
+      </div>
+      <div class="status">
+        <span class="odo" title="Decorative counter, not real analytics">You are visitor #${String(state.visitors).padStart(6,"0")}</span>
+        <a href="#/sitemap">Site map</a>
+        <a href="#/plain">Plain version</a>
+        <span class="muted">Sound ${state.muted?"off":"on"} · ${state.mode} · ${state.theme}</span>
+      </div>
+      <div class="start-menu" id="smenu">
+        <div class="head">${esc(SITE_DATA.meta.name)}</div>
+        <button type="button" data-go="#/portfolio">Portfolio</button>
+        <button type="button" data-go="#/portfolio/projects">My Projects</button>
+        <button type="button" data-go="#/portfolio/about">About Me</button>
+        <button type="button" data-go="#/portfolio/skills">Skills</button>
+        <button type="button" data-go="#/portfolio/experience">Experience</button>
+        <button type="button" data-go="#/portfolio/contact">Contact</button>
+        <button type="button" data-go="#/blogs">Blogs</button>
+        <button type="button" data-go="#/photography">Photography</button>
+        <button type="button" data-go="#/plain">Plain content</button>
+        <a href="${esc(SITE_DATA.links.github)}" target="_blank" rel="noopener"><button type="button">GitHub</button></a>
+        <a href="${esc(SITE_DATA.links.linkedin)}" target="_blank" rel="noopener"><button type="button">LinkedIn</button></a>
+      </div>`;
+    $$("#mdock [data-go]").forEach(b => b.classList.toggle("on", b.getAttribute("data-go") === "#/" + (valid.includes(r.tab)?r.tab:"portfolio")));
+    renderWindows();
+    bindOS();
+  }
+
+  function bindOS() {
+    $("#blogq")?.addEventListener("input", e => { state.blogQuery = e.target.value; });
+    $("#blogq")?.addEventListener("keydown", e => { if (e.key==="Enter") renderOS(); });
+    $("#loadmore")?.addEventListener("click", () => { state.blogPage++; renderOS(); });
+    $("#q")?.addEventListener("keydown", e => { if (e.key==="Enter") doSearch(e.target.value); });
+    $("#mailto")?.addEventListener("click", e => {
+      const sub = $("#msub")?.value || "";
+      const body = $("#mbody")?.value || "";
+      e.currentTarget.href = `mailto:${SITE_DATA.meta.email}?subject=${encodeURIComponent(sub)}&body=${encodeURIComponent(body)}`;
+    });
+  }
+
+  function handleAction(t, e) {
+    if (t.dataset.go) {
+      if (e) e.preventDefault();
+      setStatus("Loading...");
+      beep(520,.04);
+      if (!CONFIG.mobile()) {
+        state.zoomed = true;
+        document.body.classList.add("zoomed");
+      }
+      if (location.hash === t.dataset.go) applyRoute();
+      else go(t.dataset.go);
+      return true;
+    }
+    if (t.dataset.filter) { state.projectFilter = t.dataset.filter; renderOS(); return true; }
+    if (t.dataset.openProject) { openProject(t.dataset.openProject); return true; }
+    if (t.dataset.blogcat) { state.blogFilter = t.dataset.blogcat; renderOS(); return true; }
+    if (t.dataset.photocat) { state.photoFilter = t.dataset.photocat; renderOS(); return true; }
+    if (t.hasAttribute("data-sheet")) { state.contactSheet = !state.contactSheet; renderOS(); return true; }
+    if (t.hasAttribute("data-lb-idx")) { openLightbox(+t.dataset.lbIdx); return true; }
+    if (t.hasAttribute("data-start")) { $("#smenu")?.classList.toggle("on"); beep(400,.05); return true; }
+    if (t.hasAttribute("data-theme-btn")) { toggleTheme(); return true; }
+    if (t.hasAttribute("data-mode-btn")) { toggleMode(); return true; }
+    if (t.hasAttribute("data-mute")) { toggleMute(); return true; }
+    if (t.hasAttribute("data-zoom")) { setZoom(true); return true; }
+    if (t.hasAttribute("data-desk")) { setZoom(false); return true; }
+    if (t.hasAttribute("data-rss")) { openWin("rss", "RSS.xml", "<p>RSS is decorative in this demo. Add a real feed later.</p>"); return true; }
+    if (t.dataset.copy) { navigator.clipboard.writeText(t.dataset.copy).then(() => setStatus("Link copied.")); return true; }
+    if (t.hasAttribute("data-side")) { $(".sidebar")?.classList.toggle("m-open"); return true; }
+    if (t.dataset.focus) { focusWin(t.dataset.focus); return true; }
+    return false;
+  }
+  function openProject(slug) {
+    const pr = SITE_DATA.portfolio.projects.find(p => p.slug === slug);
+    if (!pr) return;
+    openWin("p-"+slug, pr.title, `
+      <div class="faux">${esc(pr.title)}</div>
+      <p>${esc(pr.description)}</p>
+      <p><strong>Role:</strong> ${esc(pr.role)}</p>
+      <div class="pills">${pr.tech.map(t => `<span class="pill" style="background:#245EDC;color:#fff">${esc(t)}</span>`).join("")}</div>
+      ${pr.outcomes?.length ? `<ul>${pr.outcomes.map(o => `<li>${esc(o)}</li>`).join("")}</ul>`:""}
+      <p>${pr.github ? `<a class="aqua" href="${esc(pr.github)}" target="_blank" rel="noopener">GitHub</a>` : "[ADD GITHUB LINK]"}
+      ${pr.demo ? `<a class="aqua" href="${esc(pr.demo)}" target="_blank" rel="noopener">Live Demo</a>` : " [ADD LIVE DEMO]"}</p>`);
+  }
+  function doSearch(q) {
+    q = (q||"").trim().toLowerCase();
+    if (!q) return;
+    const hits = [];
+    SITE_DATA.portfolio.projects.forEach(p => { if ((p.title+p.description+p.tech.join(" ")).toLowerCase().includes(q)) hits.push(`<li><a href="#/portfolio/projects">${esc(p.title)}</a> (project)</li>`); });
+    SITE_DATA.blogs.posts.forEach(p => { if ((p.title+p.excerpt).toLowerCase().includes(q)) hits.push(`<li><a href="#/blogs/${p.slug}">${esc(p.title)}</a> (post)</li>`); });
+    SITE_DATA.photography.photos.forEach(p => { if ((p.caption + " " + (p.category||"")).toLowerCase().includes(q)) hits.push(`<li><a href="#/photography">${esc(p.caption)}</a> (photo)</li>`); });
+    openWin("search", "Search results", hits.length ? `<ul>${hits.join("")}</ul>` : "<p>No matches. Try another keyword.</p>");
+    setStatus("Search complete.");
+  }
+
+  function renderPlain() {
+    const d = SITE_DATA, p = d.portfolio;
+    const el = $("#plain-content");
+    el.hidden = false;
+    el.innerHTML = `
+      <p><a href="#/portfolio">Back to styled site</a></p>
+      <h1>${esc(d.meta.name)}</h1>
+      <p>${esc(d.meta.title)}. ${esc(d.meta.tagline)}</p>
+      <p>${esc(d.meta.email)} · ${esc(d.meta.phone)} · <a href="${esc(d.links.github)}">GitHub</a> · <a href="${esc(d.links.linkedin)}">LinkedIn</a></p>
+      <h2>About</h2><p>${esc(p.about.summary)}</p>
+      <h2>Education</h2><ul>${p.education.map(e => `<li>${esc(e.degree)}, ${esc(e.institute)}, ${esc(e.years)}, ${esc(e.grade)}</li>`).join("")}</ul>
+      <h2>Experience</h2>${p.experience.map(e => `<h3>${esc(e.title)}, ${esc(e.company)}</h3><p>${esc(e.dates)}, ${esc(e.location)}</p><ul>${e.bullets.map(b=>`<li>${esc(b)}</li>`).join("")}</ul>`).join("")}
+      <h2>Projects</h2>${p.projects.map(pr => `<h3>${esc(pr.title)}</h3><p>${esc(pr.description)}</p><p>Tech: ${pr.tech.map(esc).join(", ")}</p>`).join("")}
+      <h2>Skills</h2>${p.skills.categories.map(c => `<h3>${esc(c.name)}</h3><p>${c.items.map(i => esc(i.name)+" ("+esc(i.tier)+")").join(", ")}</p>`).join("")}
+      <h2>Certifications</h2><ul>${p.certifications.map(c => `<li>${esc(c.name)} — ${esc(c.org)}</li>`).join("")}</ul>
+      <h2>Achievements</h2><ul>${p.achievements.map(a => `<li>${esc(a.name)} ${esc(a.detail||"")}</li>`).join("")}</ul>
+      <h2>Leadership</h2><ul>${p.leadership.map(l => `<li>${esc(l.name)} — ${esc(l.detail)}</li>`).join("")}</ul>
+      <h2>Blogs</h2><ul>${d.blogs.posts.map(x => `<li>${esc(x.title)} ${x.sample?"[SAMPLE]":""}</li>`).join("")}</ul>
+      <h2>Photography</h2><ul>${d.photography.photos.map(p => `<li>${esc(p.caption)} [${esc(p.category)}]</li>`).join("")}</ul>
+      <p><a href="${esc(p.resume.url)}">Download resume</a></p>`;
+  }
+
+  /* ========== SCENE ========== */
+  function setZoom(on) {
+    state.zoomed = on;
+    document.body.classList.toggle("zoomed", on && !CONFIG.mobile());
+    setStatus(on ? "Desktop mode" : "Desk view");
+    renderOS();
+  }
+  function toggleTheme() {
+    state.theme = state.theme === "light" ? "dark" : "light";
+    document.documentElement.dataset.theme = state.theme;
+    $("meta[name=theme-color]").setAttribute("content", state.theme === "dark" ? "#0A246A" : "#245EDC");
+    beep(state.theme==="dark"?300:520,.08);
+    renderOS();
+  }
+  function toggleMode() {
+    state.mode = state.mode === "y2k" ? "modern" : "y2k";
+    document.documentElement.dataset.mode = state.mode;
+    if (state.mode === "modern") setZoom(true);
+    renderOS();
+  }
+  function toggleMute() {
+    state.muted = !state.muted;
+    if (!state.muted) { state.soundOn = true; beep(880,.1); }
+    renderOS();
+  }
+
+  /* ========== EASTER EGGS ========== */
+  function illegalOp() {
+    openWin("err", "Portfolio.exe", `<p><strong>This portfolio has performed an illegal operation and will be restarted.</strong></p><p class="muted">Just kidding. Dot says you are fine.</p><button class="aqua" data-go="#/portfolio" type="button">OK</button>`);
+  }
+  function shutdown() {
+    const boot = $("#boot");
+    boot.classList.remove("hide");
+    boot.innerHTML = `<div>It is now safe to turn off your computer.</div><div class="muted">...or click Restart.</div><button class="skip-boot" id="restart">Restart</button>`;
+    $("#restart").onclick = () => { boot.classList.add("hide"); setZoom(true); applyRoute(); };
+  }
+
+  /* ========== INIT ========== */
+  function bindGlobal() {
+    document.addEventListener("click", e => {
+      const t = e.target.closest("[data-go],[data-filter],[data-open-project],[data-blogcat],[data-photocat],[data-sheet],[data-lb-idx],[data-start],[data-theme-btn],[data-mode-btn],[data-mute],[data-zoom],[data-desk],[data-rss],[data-copy],[data-side],[data-focus]");
+      if (t) { handleAction(t, e); return; }
+      if (e.target.closest(".flip")) e.target.closest(".flip").classList.toggle("flipped");
+    });
+    $("#windows").addEventListener("click", e => {
+      const btn = e.target.closest("[data-act]");
+      const win = e.target.closest(".xp");
+      if (!btn || !win) return;
+      e.preventDefault();
+      e.stopPropagation();
+      const id = win.dataset.id;
+      const act = btn.getAttribute("data-act");
+      if (act === "close") closeWin(id);
+      if (act === "min") {
+        const w = state.wins.find(x => x.id === id);
+        if (w) { w.min = true; renderWindows(); }
+      }
+      if (act === "max") {
+        const w = state.wins.find(x => x.id === id);
+        if (w) { w.max = !w.max; renderWindows(); }
+      }
+    });
+    $("#power").addEventListener("click", shutdown);
+    $("#skipboot").addEventListener("click", (e) => { e.stopPropagation(); finishBoot(); });
+    $(".skip").addEventListener("click", e => { e.preventDefault(); go("#/plain"); });
+    window.addEventListener("hashchange", () => { setStatus("Ready."); applyRoute(); });
+    window.addEventListener("keydown", e => {
+      if (e.key === "Escape") {
+        if (state.lb) { state.slide = false; state.lb = null; drawLightbox(); return; }
+        if (state.wins.length) { closeWin(state.wins.sort((a,b)=>b.z-a.z)[0].id); return; }
+      }
+      if (e.key === "/" && !/input|textarea/i.test(e.target.tagName)) { e.preventDefault(); $("#q")?.focus(); }
+      if (["INPUT","TEXTAREA"].includes(e.target.tagName)) return;
+      if (e.key === "1") go("#/portfolio");
+      if (e.key === "2") go("#/blogs");
+      if (e.key === "3") go("#/photography");
+      const map = { ArrowUp:"u", ArrowDown:"d", ArrowLeft:"l", ArrowRight:"r", b:"b", a:"a", B:"b", A:"a" };
+      if (map[e.key]) {
+        state.konami.push(map[e.key]);
+        state.konami = state.konami.slice(-10);
+        if (state.konami.join("") === "uuddlrlrba") illegalOp();
+      }
+      if (state.lb && e.key === "ArrowRight") lbStep(1);
+      if (state.lb && e.key === "ArrowLeft") lbStep(-1);
+    });
+    $("#lightbox").addEventListener("click", e => {
+      if (e.target.dataset.lbstep) lbStep(+e.target.dataset.lbstep);
+      if (e.target.hasAttribute("data-lbclose") || e.target.id==="lightbox") { state.lb=null; state.slide=false; drawLightbox(); }
+      if (e.target.hasAttribute("data-slide")) {
+        state.slide = !state.slide;
+        drawLightbox();
+      }
+      if (e.target.dataset.lbidx) { state.lb.idx = +e.target.dataset.lbidx; drawLightbox(); }
+    });
+    let sx = 0;
+    $("#lightbox").addEventListener("touchstart", e => sx = e.changedTouches[0].clientX, { passive: true });
+    $("#lightbox").addEventListener("touchend", e => {
+      const dx = e.changedTouches[0].clientX - sx;
+      if (Math.abs(dx) > 40) lbStep(dx < 0 ? 1 : -1);
+    });
+    const screen = $("#screen");
+    screen.addEventListener("dblclick", () => setZoom(true));
+    screen.addEventListener("contextmenu", e => {
+      e.preventDefault();
+      const c = $("#ctx");
+      c.classList.add("on");
+      c.style.left = e.clientX + "px"; c.style.top = e.clientY + "px";
+      c.innerHTML = `<button type="button" data-act="ref">Refresh</button><button type="button" data-act="prop">Properties</button><button type="button" data-act="src">View Source</button>`;
+    });
+    $("#ctx").addEventListener("click", e => {
+      const a = e.target.dataset.act;
+      if (a === "ref") applyRoute();
+      if (a === "prop") openWin("prop", "Display Properties", `<p>Y2K Desktop · ${esc(SITE_DATA.meta.name)}</p><p>Theme: ${state.theme} · Mode: ${state.mode}</p>`);
+      if (a === "src") openWin("src", "View Source", "<p>This site is one HTML file. Open index.html in an editor.</p>");
+      $("#ctx").classList.remove("on");
+    });
+    document.addEventListener("click", () => $("#ctx").classList.remove("on"));
+    if (!CONFIG.reduced) {
+      document.addEventListener("mousemove", e => {
+        if (state.zoomed || CONFIG.mobile() || state.mode==="modern") return;
+        const x = (e.clientX / innerWidth - .5) * 8;
+        const y = (e.clientY / innerHeight - .5) * -6;
+        $("#scene").style.transform = `rotateY(${x}deg) rotateX(${y}deg)`;
+      });
+    }
+    setInterval(() => {
+      const el = $(".tray span");
+      if (el) el.textContent = new Date().toLocaleTimeString([], { hour:"2-digit", minute:"2-digit" });
+    }, 1000);
+    setInterval(() => { if (state.slide && state.lb) lbStep(1); }, 4000);
+    matchMedia("(max-width: 640px)").addEventListener("change", () => {
+      if (CONFIG.mobile()) { document.body.classList.add("zoomed"); state.zoomed = true; }
+      applyRoute();
+    });
+  }
+
+  function finishBoot() {
+    $("#boot").classList.add("hide");
+    state.boot = false;
+    $("#buddy").classList.add("on");
+    setTimeout(() => $("#buddy").classList.remove("on"), 8000);
+    if (CONFIG.mobile() || CONFIG.reduced) setZoom(true);
+    else { setZoom(false); setTimeout(() => { if (!CONFIG.mobile()) setZoom(true); }, CONFIG.reduced ? 0 : 1200); }
+    if (!location.hash) location.hash = "#/portfolio";
+    else applyRoute();
+  }
+
+  function startBoot() {
+    document.documentElement.dataset.theme = state.theme;
+    document.documentElement.dataset.mode = state.mode;
+    bindGlobal();
+    renderPlain();
+    $("#plain-content").hidden = true;
+    if (CONFIG.reduced) { finishBoot(); return; }
+    let w = 0;
+    const t = setInterval(() => {
+      w += 8; $("#bootfill").style.width = Math.min(w,100) + "%";
+      if (w >= 100) { clearInterval(t); finishBoot(); }
+    }, 80);
+  }
+  startBoot();
+  </script>
+</body>
+</html>
