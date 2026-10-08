@@ -359,7 +359,7 @@
     }
     .os-tabs {
       display: flex; gap: 2px; padding: 6px 8px 0; background: linear-gradient(#c5d8f5, #9bb8e8);
-      border-bottom: 1px solid var(--blue-deep);
+      border-bottom: 1px solid var(--blue-deep); flex-shrink: 0;
     }
     [data-theme="dark"] .os-tabs { background: linear-gradient(#243868, #162448); }
     .tab {
@@ -440,15 +440,17 @@
     .odo { font-family: "VT323", monospace; font-size: 16px; letter-spacing: 2px; background: #111; color: #6f6; padding: 0 6px; }
 
     /* Components */
-    .hero { display: grid; grid-template-columns: 140px 1fr; gap: 16px; align-items: start; }
+    .hero { display: grid; grid-template-columns: 240px 1fr; gap: 16px; align-items: start; }
     .polaroid {
-      background: #fff; padding: 8px 8px 28px; box-shadow: 4px 6px 0 #0003;
+      background: #fff; padding: 8px 8px 26px; box-shadow: 4px 6px 0 #0003;
       transform: rotate(-3deg); text-align: center; font-size: 10px; color: #333;
     }
-    .polaroid img { width: 100%; height: 110px; object-fit: cover; display: block; }
+    .polaroid img {
+      width: 100%; height: 148px; object-fit: contain; object-position: center;
+      display: block; background: #111;
+    }
     .badge-face {
-      height: 110px; background:
-        repeating-linear-gradient(45deg, #cde, #cde 8px, #bcd 8px 16px);
+      height: 148px; overflow: hidden; background: #111;
       display: grid; place-items: center; font-weight: 800; color: #345;
     }
     .y2k-title {
@@ -504,7 +506,7 @@
     .chip.on { background: var(--blue-luna); color: #fff; }
 
     .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 14px; }
-    .flip { perspective: 900px; height: 220px; }
+    .flip { perspective: 900px; height: 260px; }
     .flip-inner {
       position: relative; height: 100%; transform-style: preserve-3d;
       transition: transform .6s cubic-bezier(.22,.8,.28,1);
@@ -518,15 +520,36 @@
     .back { background: linear-gradient(#245EDC, #0A246A); color: #fff; transform: rotateY(180deg); }
     [data-theme="dark"] .front { background: linear-gradient(#3a4a68, #243044); }
     .faux {
-      height: 88px; border-radius: 4px; margin-bottom: 8px;
+      height: 132px; border-radius: 4px; margin-bottom: 8px; overflow: hidden;
       background:
         linear-gradient(90deg, #245EDC, #6CB8FF),
         repeating-linear-gradient(#fff2 0 8px, transparent 8px 16px);
       display: grid; place-items: center; color: #fff; font-weight: 800; font-size: 12px;
     }
+    .faux.has-img { padding: 0; background: #123; }
+    .faux img { width: 100%; height: 100%; object-fit: cover; object-position: top center; display: block; }
+    .xp-body .faux { height: 180px; }
     .pills { display: flex; flex-wrap: wrap; gap: 4px; }
     .pill { background: #fff3; border: 1px solid #fff6; border-radius: 999px; padding: 2px 7px; font-size: 10px; }
     .front .pill { background: #245EDC; color: #fff; }
+
+    .wwhr {
+      display: grid; gap: 8px; margin: 0 0 12px;
+      background: var(--win-inset); border: 1px solid #8886; padding: 10px;
+    }
+    .wwhr > div { display: grid; grid-template-columns: 72px 1fr; gap: 8px; align-items: start; }
+    .wwhr dt {
+      margin: 0; font-size: 11px; font-weight: 800; letter-spacing: .04em;
+      text-transform: uppercase; color: #fff; text-align: center;
+      padding: 4px 6px; border-radius: 6px;
+      box-shadow: inset 0 1px 0 #fff7, 0 1px 2px #0004;
+    }
+    .wwhr dt.k-what { background: linear-gradient(#8ec4ff, #245EDC); }
+    .wwhr dt.k-why { background: linear-gradient(#ffd08a, #FF8A1F); color: #3a1a00; }
+    .wwhr dt.k-how { background: linear-gradient(#9ae6ff, #2a9adf); }
+    .wwhr dt.k-result { background: linear-gradient(#c6f58a, #6BC72B); color: #143; }
+    .wwhr dd { margin: 0; font-size: 13px; line-height: 1.45; color: var(--ink); }
+    .xp-body .wwhr { margin-top: 10px; }
 
     .skills-legend {
       display: flex; flex-wrap: wrap; gap: 10px; align-items: center;
@@ -595,7 +618,15 @@
       background: linear-gradient(#d4b46a, #a67c32); padding: 8px; color: #1a1a12;
       box-shadow: 4px 6px 0 #0004;
     }
-    .frame inner, .frame .inner { background: #f7f1dc; padding: 10px; min-height: 90px; }
+    .frame inner, .frame .inner { background: #f7f1dc; padding: 10px; min-height: 90px; display: flex; flex-direction: column; gap: 6px; }
+    .cert-btn {
+      margin-top: auto; align-self: flex-start; text-decoration: none;
+      background: linear-gradient(#d9f2ff, #6CB8FF 48%, #2a7fd4);
+      border: 1px solid #1a5a88; color: #063; font-weight: 800; font-size: 11px;
+      padding: 5px 10px; border-radius: 10px; cursor: pointer;
+      box-shadow: inset 0 1px 0 #fff, 0 2px 3px #0003;
+    }
+    .cert-btn:hover { filter: brightness(1.05); }
     .shelf { display: flex; gap: 10px; flex-wrap: wrap; padding: 10px; background: #5c3a1a; border-radius: 4px; }
     .trophy { width: 64px; text-align: center; font-size: 10px; color: #fff; }
     .cup { width: 40px; height: 36px; margin: 0 auto 4px; background: linear-gradient(#ffe37a, #c9a227); clip-path: polygon(20% 0, 80% 0, 70% 70%, 90% 100%, 10% 100%, 30% 70%); }
@@ -613,8 +644,17 @@
     .mail textarea, .mail input { width: 100%; border: 1px solid #888; background: var(--addr); color: inherit; padding: 4px; }
     .mail textarea { min-height: 80px; }
 
-    .gb { font-size: 13px; }
-    .gb article { border-bottom: 1px dashed #8886; padding: 8px 0; }
+    .bell { margin-top: 14px; background: var(--card); border: 1px solid #888; padding: 10px 12px 12px; }
+    .bell h3 { margin: 0 0 6px; }
+    .bell p { margin: 8px 0 0; }
+    .bell-svg { width: 100%; height: auto; display: block; }
+    .bell-svg .axis { stroke: var(--ink); stroke-width: 1.4; }
+    .bell-svg .tick { stroke: var(--muted); stroke-width: 1; stroke-dasharray: 3 3; }
+    .bell-svg .band { fill: var(--blue-light); opacity: 0.45; }
+    .bell-svg .curve { fill: none; stroke: var(--blue-luna); stroke-width: 2.6; stroke-linejoin: round; }
+    .bell-svg text { fill: var(--ink); font-family: Tahoma, Verdana, sans-serif; font-size: 15px; }
+    .bell-svg .band-label { font-size: 18px; font-weight: 800; fill: var(--blue-deep); }
+    [data-theme="dark"] .bell-svg .band-label { fill: var(--sky); }
 
     .blog-banner {
       background: linear-gradient(#5A9CF5, #245EDC);
@@ -623,6 +663,21 @@
     }
     .blog-layout { display: grid; grid-template-columns: 1fr 200px; gap: 12px; }
     .post-card { background: var(--card); border: 1px solid #8886; padding: 10px; margin: 0 0 10px; }
+    .blog-photo {
+      display: block;
+      max-width: 100%;
+      width: auto;
+      height: auto;
+      max-height: min(36vh, 320px);
+      object-fit: contain;
+      margin: 10px auto;
+      background: #111;
+      border: 1px solid #8886;
+    }
+    .post-nav { display: flex; justify-content: space-between; align-items: center; margin: 14px 0 4px; }
+    .post-dir { min-width: 56px; font-size: 18px; line-height: 1; padding: 6px 16px; }
+    .post-dir:disabled { opacity: 0.35; cursor: default; }
+    body.zoomed .blog-photo { max-height: min(58vh, 520px); }
     .codewin {
       background: #111; color: #9f9; font-family: "Courier New", monospace;
       font-size: 12px; padding: 10px; border: 4px solid #c0c0c0; overflow: auto;
@@ -638,14 +693,19 @@
     .pile .ph:nth-child(2) { transform: rotate(4deg); left: 16px; top: 4px; }
     .pile .ph:nth-child(3) { transform: rotate(10deg); left: 28px; top: 16px; }
     .pile:hover .ph:nth-child(1) { transform: rotate(-16deg) translateX(-8px); }
-    .prints { display: grid; grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); gap: 12px; }
+    .prints { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 16px; align-items: start; }
     .print {
-      background: #fff; padding: 8px 8px 24px; box-shadow: 3px 5px 10px #0004;
-      cursor: pointer; color: #333;
+      background: #fff; padding: 8px 8px 28px; margin: 0;
+      box-shadow: 3px 5px 10px #0004; cursor: pointer; color: #333;
     }
-    .print img, .print .ph { width: 100%; height: 110px; object-fit: cover; display: block; }
-    .contact-sheet .print { padding: 3px; }
-    .contact-sheet .print img, .contact-sheet .print .ph { height: 54px; }
+    .print img, .print .ph {
+      width: 100%; height: auto; aspect-ratio: 16 / 9; object-fit: contain;
+      background: #111; display: block;
+    }
+    .print figcaption { font-size: 12px; margin-top: 6px; text-align: center; }
+    .contact-sheet { grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); gap: 8px; }
+    .contact-sheet .print { padding: 4px 4px 18px; }
+    .contact-sheet .print figcaption { font-size: 10px; }
 
     /* Windows */
     #windows { position: fixed; inset: 0; pointer-events: none; z-index: 50; }
@@ -653,7 +713,7 @@
       pointer-events: auto; position: absolute; min-width: 280px; max-width: min(560px, 92vw);
       background: var(--win-face); border: 3px solid var(--blue-luna);
       border-radius: 8px 8px 0 0; box-shadow: 6px 10px 24px var(--shadow);
-      display: flex; flex-direction: column; max-height: min(70vh, 520px);
+      display: flex; flex-direction: column; max-height: min(82vh, 640px);
     }
     .xp.max { inset: 8% 8% auto; max-width: none; width: auto; max-height: 80vh; }
     .xp.min { display: none; }
@@ -671,7 +731,9 @@
     .xp-btns .mn { background: #ffd24a; }
     .xp-btns .mx { background: #6BC72B; }
     .xp-btns .cl { background: #e03a2a; color: #fff; font-size: 16px; }
-    .xp-body { padding: 10px; overflow: auto; font-size: 13px; }
+    .xp-body { padding: 10px; overflow: auto; font-size: 13px; flex: 1; min-height: 0; }
+    .proj-links { display: flex; flex-wrap: wrap; gap: 8px; margin: 8px 0 12px; align-items: center; }
+    .proj-links .aqua { display: inline-block; text-decoration: none; }
 
     #lightbox {
       position: fixed; inset: 0; background: rgba(8,12,24,.82); z-index: 80;
@@ -791,11 +853,19 @@
       #buddy { display: none !important; }
       .os-tabs .tab { padding: 6px 10px; font-size: 11px; }
       .hero { grid-template-columns: 1fr; }
+      .polaroid { max-width: 280px; }
       .mobile-dock { display: flex; }
       .taskbar { padding-bottom: 4px; }
       #os { padding-bottom: 56px; }
-      .xp, .xp.max { inset: 0 !important; max-width: none; width: auto; max-height: none; height: auto; border-radius: 0; }
+      .xp, .xp.max {
+        top: 0 !important; left: 0 !important; right: 0 !important; bottom: 64px !important;
+        max-width: none; width: auto; max-height: none; height: auto; border-radius: 0;
+      }
+      .xp-body .faux { height: 140px; }
       .flip:hover .flip-inner { transform: none; }
+      .flip.flipped .flip-inner,
+      .flip.flipped:hover .flip-inner { transform: rotateY(180deg); }
+      .wwhr > div { grid-template-columns: 1fr; gap: 2px; }
     }
   </style>
 </head>
@@ -882,23 +952,23 @@
       name: "Abdul Rehman",
       title: "ML Engineer & CS Undergraduate",
       tagline: "From-scratch transformers, offline RAG, and production ML APIs.",
-      location: "[ADD CITY]",
       email: "itsar2k3@gmail.com",
       phone: "+91-817-589-4114",
       siteTitle: "Abdul Rehman — Portfolio 2003",
-      photo: null
+      photo: "images/PORTFOLIO IMAGE/portfolio image.jpeg"
     },
     links: {
       github: "https://github.com/abdul2048",
-      linkedin: "https://www.linkedin.com/in/abdul-rehman",
+      linkedin: "https://www.linkedin.com/in/abdul-rehman-b40a15214/",
       twitter: null,
+      instagram: "https://www.instagram.com/abdul_r2048/",
       other: []
     },
     portfolio: {
       about: {
         summary: "I'm Abdul Rehman, a final-year Computer Science and Engineering undergraduate at SRM Institute of Science & Technology. I work across machine learning and web development — training transformer models, building RAG systems, and shipping the APIs that serve them. I recently interned as an ML Engineer at ExamOnline in New Delhi, where I designed production inference APIs and grading models used across two exam categories.",
-        languages: "[ADD LANGUAGES]",
-        interests: ["Web development", "Competitive programming (LeetCode)", "Cricket", "Debate", "Painting", "Counter-Strike"],
+        languages: "English, Hindi",
+        interests: [ "Competitive programming","Web development", "Cricket","Swimming", "Debate", "Painting", "Counter-Strike"],
         clubs: ["Data Science Club", "IEEE Club"]
       },
       education: [
@@ -926,36 +996,57 @@
           title: "AskFileAI",
           summary: "Local RAG-based AI file assistant",
           description: "A fully offline assistant that answers questions across 22+ file types (docs, code, spreadsheets, images) with multi-file upload and conversation memory. Advanced RAG uses hybrid retrieval, LLM re-ranking, and GraphRAG with multi-hop entity traversal. A modular LangGraph pipeline (file loaders, embeddings, ChromaDB) sits behind a Streamlit chat UI with source attribution.",
+          brief: {
+            what: "Offline chat over your own files and images. You upload, ask in a chat UI, and Ollama keeps every document on the machine.",
+            why: "Hosted document chat sends private files off-device. Keyword search misses meaning; vector search drops exact names, numbers, and how entities connect. This is private Q&A that covers both.",
+            how: "Streamlit drives a LangGraph pipeline: load and chunk files, embed with nomic-embed-text into Chroma, and run images through LLaVA plus OCR. Retrieval fuses dense search and BM25, expands related entities on a NetworkX graph, reranks chunks, then qwen2.5:7b answers with citations and prior-turn memory. Large files embed in batches.",
+            result: "A multi-file chat that answers from your documents, names the source file, follows up from earlier turns, and stays offline once the models are pulled."
+          },
           role: "Builder",
           tech: ["Python", "LangGraph", "Ollama", "Qwen2.5-7B", "LLaVA", "ChromaDB", "BM25", "GraphRAG", "Tesseract OCR", "Streamlit"],
           outcomes: ["Works across 22+ file types", "Fully offline and private"],
           github: "https://github.com/Abdul2048/askFileAI",
           demo: null,
-          category: "GenAI"
+          category: "GenAI",
+          image: "images/PORTFOLIO%20IMAGE/askfile-ai-front-page.jpg"
         },
         {
           slug: "vsmollm",
-          title: "VsmoLLM",
+          title: "vSmolLM",
           summary: "GPT-2 built from scratch",
           description: "GPT-2 implemented from scratch in PyTorch, including token and position embeddings, causal multi-head attention, and Transformer blocks. Trained on WikiText-103 with FP16, gradient accumulation, AdamW, cosine LR scheduling, checkpointing, and GPU optimization. Training and evaluation pipelines use Hugging Face, YAML config, and Weights & Biases, reporting loss and perplexity.",
+          brief: {
+            what: "GPT-2 written in PyTorch from scratch and trained on WikiText-103. Default is the small setup: 12 layers, 768-d, 12 heads, 50,257 vocab, 512-token context.",
+            why: "A pretrained checkpoint hides how a transformer is actually built and trained. The aim was a readable stack that still fits a consumer GPU with about 8 GB.",
+            how: "Token and position embeddings, causal multi-head attention, transformer blocks, a final layer norm, and a tied language-model head. Training uses WikiText-103, AdamW, cosine LR with warmup, clipping, FP16, and accumulation to an effective batch of 32. Checkpoints resume by step or epoch. Optional W&B logging and a pause when the GPU overheats. Eval reports loss and perplexity.",
+            result: "A full train-and-evaluate loop, plus helpers for batch size and GPU temperature. The repo does not publish a perplexity score — the deliverable is the trainable model and the system around it."
+          },
           role: "Builder",
           tech: ["PyTorch", "Hugging Face Datasets", "YAML", "Weights & Biases"],
           outcomes: ["Trained on WikiText-103", "Logged loss and perplexity in W&B"],
-          github: null,
+          github: "https://github.com/Abdul2048/vSmolLM",
           demo: null,
-          category: "ML"
+          category: "ML",
+          image: "images/PORTFOLIO%20IMAGE/vsmollm-front-page.jpg"
         },
         {
           slug: "brainfile",
           title: "BrainFile",
           summary: "Token-optimized codebase context CLI",
           description: "A Groq-powered CLI that parses codebases with AST analysis and writes token-optimized context files (~2K tokens vs 15K+ raw), so AI agents can onboard across 7 languages much faster.",
+          brief: {
+            what: "A CLI (`brainfile generate`) that compresses a repo into one `.brainfile` — a token-capped snapshot an agent can load instead of the whole tree. Version 0.2.0; spec phases 1–3 are done.",
+            why: "Agents burn context on files that do not matter and miss how modules connect. Dumping a repo into a prompt is slow and noisy. This precomputes architecture so the agent does not start from a file dump.",
+            how: "It walks the tree (honoring .gitignore and .brainignore), hashes files with SHA-256, and parses JavaScript, TypeScript, and Python with tree-sitter. A NetworkX import graph yields used-by maps, entry points, hubs, cycle warnings, a concern index, and data-flow. Key files get short Groq summaries, cached by hash. Specs and design notes can add intent; the graph still comes from the code. Output is cut to a token budget such as 2K.",
+            result: "One command writes a single context file with structure, dependencies, and short module notes. Tests cover ingestion, parsing, the graph, annotation, and spec merge. Static analysis still runs with no API key."
+          },
           role: "Builder",
           tech: ["Python", "tree-sitter", "Groq API", "NetworkX", "Typer", "tiktoken"],
           outcomes: ["~2K tokens vs 15K+ raw context", "81% accuracy on context relevance evaluation", "1st place, Cherry Network Hackathon"],
           github: "https://github.com/Abdul2048/Brainfile",
           demo: null,
-          category: "Tools"
+          category: "Tools",
+          image: "images/PORTFOLIO%20IMAGE/brainfile-front-page.jpg"
         }
       ],
       skills: {
@@ -994,12 +1085,12 @@
         ]
       },
       certifications: [
-        { name: "Machine Learning Specialization (3-course series)", org: "Andrew Ng / DeepLearning.AI" },
-        { name: "AWS Certified Solutions Architect", org: "Amazon Web Services" },
-        { name: "Machine Learning Certification", org: "IIT Kharagpur" },
-        { name: "Professional Generative AI Certification", org: "Oracle" },
-        { name: "Programming Languages — Python, C++", org: "[ADD ISSUER]" },
-        { name: "Full Stack Web Development Bootcamp", org: "Angela Yu" }
+        { name: "Machine Learning Specialization (3-course series)", org: "Andrew Ng / DeepLearning.AI", url: "https://drive.google.com/drive/u/1/folders/15ysERv-qxFxov3HY2VwggGWNs6m30-Zl" },
+        { name: "AWS Certified Solutions Architect", org: "Amazon Web Services", url: "https://drive.google.com/file/d/1EaqcE7pJMURruy5d1B3GmdP0FZZKbGzn/view" },
+        { name: "Machine Learning Certification", org: "IIT Kharagpur", url: "https://drive.google.com/drive/u/1/folders/1TTZr2ItYewWq6_E4UNOqzorcd86wV9dl" },
+        { name: "Professional Generative AI Certification", org: "Oracle", url: "https://drive.google.com/drive/u/1/folders/1AjjC-flDal9XC-Yy73zaIp7PPxSVuKKC" },
+        { name: "Programming Languages — Python, C++", org: "[ADD ISSUER]", url: "https://drive.google.com/drive/u/1/folders/1LTim2_6e2kCpM07ySlmvq9qQiOy_zOTZ" },
+        { name: "Full Stack Web Development Bootcamp", org: "Angela Yu", url: "https://drive.google.com/file/d/1LQsabqR_eqNACDTLTNFvGEN-Ty3QSt6S/view?usp=drive_link" }
       ],
       achievements: [
         { name: "1st Place, Cherry Network Hackathon", detail: "BrainFile — AI-powered CLI for token-optimized codebase context generation." },
@@ -1017,75 +1108,150 @@
       resume: { url: "Abdul_Rehman_Resume_main(2).pdf", fileName: "Abdul_Rehman_Resume.pdf" }
     },
     blogs: {
-      note: "I have not published posts here yet. These three entries are labeled [SAMPLE]. Replace them in SITE_DATA.blogs.posts.",
-      categories: ["ML", "Systems", "Notes"],
+      note: "",
+      categories: ["Education", "Agents", "MLOps", "Generative AI", "Learning", "RAG"],
       posts: [
         {
-          slug: "building-gpt2-from-scratch",
-          title: "What building GPT-2 from scratch actually teaches you",
-          date: "2026-08-12",
-          category: "ML",
-          tags: ["PyTorch", "transformers", "SAMPLE"],
-          sample: true,
-          excerpt: "A sample post about attention, training loops, and why implementing GPT-2 by hand is a brutal but useful teacher.",
+          slug: "can-ai-notice-confusion",
+          title: "Can AI notice confusion before you even say so?",
+          linkedin: "https://www.linkedin.com/feed/update/urn:li:activity:7490265819407499265/",
+          date: "2026-09-12",
+          category: "Education",
+          tags: ["AI", "Education", "Learning"],
+          excerpt: "Everyone is building AI that answers faster. I got curious about a different problem: can it notice when someone is confused, before they say so?",
           content: [
-            { type: "p", text: "[SAMPLE] This is placeholder writing so the blog layout works. Replace this post in SITE_DATA.blogs.posts. It is not a published article by Abdul." },
-            { type: "h", text: "Attention is just a careful softmax" },
-            { type: "p", text: "Causal masks, residual streams, and learning-rate schedules look simple in a paper and loud in a training log. This sample post exists to show headings, quotes, and code." },
-            { type: "quote", text: "If you cannot implement it, you do not yet own it." },
-            { type: "code", text: "attn = softmax(q @ k.T / sqrt(d) + causal_mask) @ v" },
-            { type: "ul", items: ["Embeddings first", "Then blocks", "Then the train loop"] }
+            { type: "p", text: "Everyone's building AI that answers questions faster and more efficiently. Is that the only problem we want to solve?" },
+            { type: "p", text: "I got curious about the problem: can AI notice when someone's confused, before they even say so?" },
+            { type: "p", text: "I've been messing around with an idea for the last few weeks, a small project that tries to catch confusion in the moment. During a lecture. While reading. At the same time, explaining something back to yourself." },
+            { type: "p", text: "Confusion has tells. You hesitate. You re-read the same line without realizing it. Your notes slow down, or just stop. Nobody's really building for these signals; we're all too busy building for the \"give me the answer\" part." },
+            { type: "p", text: "So that's what I'm poking at. Using simple stuff — pauses, filler words, typing speed — to try and flag the moment understanding breaks down. Not after the quiz. While it's actually happening." },
+            { type: "p", text: "The dream version: a professor gets a small heads-up mid class, something like \"a chunk of the room lost you around slide 14.\" Not to watch students, just to give them a chance to double back before confusion turns into a bad grade three weeks later." },
+            { type: "p", text: "Most AI in education is obsessed with giving information faster. I think the harder problem is teaching it to notice when someone isn't ready to move on yet." },
+            { type: "p", text: "Still early, still rough. Not sure yet if it actually holds up at scale." },
+            { type: "p", text: "Genuinely curious what people think is worth pursuing, or overthinking a non-problem?" }
           ]
         },
         {
-          slug: "local-rag-without-a-cloud",
-          title: "Local RAG: keep the files on the machine",
-          date: "2026-07-02",
-          category: "Systems",
-          tags: ["RAG", "ChromaDB", "SAMPLE"],
-          sample: true,
-          excerpt: "Sample notes on hybrid retrieval, re-ranking, and why offline file Q&A is a product, not a demo.",
+          slug: "agent-or-workflow",
+          title: "Unpopular opinion: most \"AI agents\" aren't agents",
+          linkedin: "https://www.linkedin.com/feed/update/urn:li:activity:7483609430886887424/",
+          date: "2026-07-03",
+          category: "Agents",
+          tags: ["Agents", "LLM", "Workflows"],
+          excerpt: "Where's the real line between an agent and a workflow with LLM calls? Most of what ships today is a chatbot with extra steps and a tool call.",
           content: [
-            { type: "p", text: "[SAMPLE] Placeholder post. Swap this for a real write-up when you have one." },
-            { type: "p", text: "Hybrid search plus GraphRAG is how a local assistant can jump across documents instead of parroting a single chunk." },
-            { type: "h", text: "A tiny pipeline" },
-            { type: "code", text: "load -> chunk -> embed -> retrieve -> rerank -> generate" }
+            { type: "p", text: "Unpopular opinion." },
+            { type: "p", text: "I'm curious what others think: where's the real line between an \"agent\" and a \"workflow with LLM calls\"?" },
+            { type: "p", text: "Because most \"AI agents\" in production today aren't agents. They're chatbots with extra steps and a tool call." },
+            { type: "p", text: "A real agent plans, adapts, and recovers from failure without a human stepping in to rewrite the prompt. What most companies have actually shipped is a fixed workflow wearing an agent costume." },
+            { type: "p", text: "And honestly? Nothing wrong with that. It works. It's shippable. It's safe. Just call it what it is." },
+            { type: "p", text: "Right now, \"agentic AI\" is doing a lot of heavy lifting as a marketing term more than a technical one." },
+            { type: "img", src: "images/BLOG%20IMAGES/agent-vs-workflow.png", alt: "Diagram: a real agent plans, acts, checks the result, and retries on failure. A fixed workflow runs the same steps every time." }
           ]
         },
         {
-          slug: "hackathon-cli-context",
-          title: "Token budgets are a UX problem",
-          date: "2026-05-20",
-          category: "Notes",
-          tags: ["CLI", "hackathon", "SAMPLE"],
-          sample: true,
-          excerpt: "Sample post about shrinking a codebase into a few thousand tokens so an agent can actually start working.",
+          slug: "ml-fails-before-the-code",
+          title: "Most ML models don't fail because of bad algorithms",
+          linkedin: "https://www.linkedin.com/feed/update/urn:li:activity:7465688507102105600/",
+          date: "2026-05-19",
+          category: "MLOps",
+          tags: ["MachineLearning", "MLOps", "CloudArchitecture", "AI", "SolutionsArchitect", "DataEngineering", "MLPipeline"],
+          excerpt: "They fail because of poor architecture decisions made before a single line of code was written.",
           content: [
-            { type: "p", text: "[SAMPLE] Replace me. This page only proves that post view, tags, and code blocks work." },
-            { type: "p", text: "AST-aware context is less romantic than a giant paste, and much more useful." }
+            { type: "p", text: "Most ML models don't fail because of bad algorithms. They fail because of poor architecture decisions made before a single line of code was written." },
+            { type: "p", text: "While learning solutions to build scalable ML pipelines on the cloud:" },
+            { type: "h", text: "Decouple every layer" },
+            { type: "p", text: "Data ingestion, feature engineering, training, and serving should be independent. Tightly coupled pipelines become technical debt fast." },
+            { type: "h", text: "Data is the first-class citizen" },
+            { type: "p", text: "Design your data layer first, not your model. Without reliable, versioned, and governed data, your pipeline is built on sand." },
+            { type: "h", text: "Build for retraining, not just training" },
+            { type: "p", text: "A model trained once is a prototype. A model that re-trains automatically on fresh data is a product." },
+            { type: "h", text: "Observability is not optional" },
+            { type: "p", text: "If you can't monitor data drift, model drift, and pipeline health in real time, you're flying blind in production." },
+            { type: "h", text: "Cloud-native is not cloud-optimal" },
+            { type: "p", text: "Using managed services (Vertex AI, SageMaker, Azure ML) is smart. But without governance and cost controls, cloud-native can become cloud-expensive." }
+          ]
+        },
+        {
+          slug: "the-gap-in-an-old-genai-project",
+          title: "The quiet gap between who built it and who you are now",
+          linkedin: "https://www.linkedin.com/feed/update/urn:li:activity:7462945585889849344/",
+          date: "2026-01-28",
+          category: "Generative AI",
+          tags: ["GenerativeAI", "SolutionArchitect", "SystemDesign"],
+          excerpt: "I went back to a GenAI project from last year and sat there reading my own code, thinking I would never build it this way now.",
+          content: [
+            { type: "p", text: "Has anyone else gone back to an old project and felt that? That quiet gap between who built it and who you are now?" },
+            { type: "p", text: "Last year, I built a GenAI project. It worked, but it was painful. Latency all over the place, costs I couldn't predict, architecture decisions I made confidently that quietly fell apart under load." },
+            { type: "p", text: "Last month, I went back to enhance it. And I just sat there reading my own code thinking... I would never build it this way now." },
+            { type: "p", text: "Not because I got smarter. But because back then, I was treating GenAI like a regular API call. I had no idea it would force me to rethink how I approach scaling, cost, and system design entirely." },
+            { type: "p", text: "One year, one humbling project, and a lot of unlearning later, I see it completely differently now." }
+          ]
+        },
+        {
+          slug: "starting-solution-architecture",
+          title: "Starting my journey into solution architecture as a student",
+          linkedin: "https://www.linkedin.com/feed/update/urn:li:activity:7456435572572692481/",
+          date: "2025-11-06",
+          category: "Learning",
+          tags: ["StudentJourney", "SolutionArchitecture", "LearningByDoing", "TechBasics"],
+          excerpt: "At first it sounded like something only experts do. The basic idea is simpler: solve real problems with technology in a structured way.",
+          content: [
+            { type: "p", text: "Starting my journey into solution architecture as a student." },
+            { type: "p", text: "At first, it sounded like something only experts do. But honestly, the basic idea is pretty simple: it's about solving real-world problems using technology in a smart and structured way." },
+            { type: "p", text: "Here's how I'm beginning to understand it:" },
+            { type: "h", text: "First, understand the problem" },
+            { type: "p", text: "Not tools. Not coding. Just the actual need." },
+            { type: "h", text: "Then, break it down" },
+            { type: "p", text: "Frontend, backend, database." },
+            { type: "h", text: "Next, keep it simple" },
+            { type: "p", text: "No need for complex systems as a beginner. Just build something that works." },
+            { type: "h", text: "Finally, improve step by step" },
+            { type: "p", text: "Make it faster, scalable, and cleaner over time." },
+            { type: "h", text: "My takeaway" },
+            { type: "p", text: "You don't need to know everything to start. Just learn to think clearly and build step by step." }
+          ]
+        },
+        {
+          slug: "askfileai-chroma-bug",
+          title: "A strange bug in AskFileAI, and the simple fix",
+          linkedin: "https://www.linkedin.com/feed/update/urn:li:activity:7399179253277392896/",
+          date: "2026-03-22",
+          category: "RAG",
+          tags: ["RAG", "ChromaDB", "LangGraph", "AskFileAI"],
+          excerpt: "A new file still answered from older uploads. The model wasn't the problem. ChromaDB was keeping every past embedding.",
+          content: [
+            { type: "p", text: "A strange bug I faced while building my agentic project AskFileAI (using LangGraph, a chain, RAG, and the rest), and the surprisingly simple fix." },
+            { type: "p", text: "I ran into an unexpected bug:" },
+            { type: "ul", items: [
+              "I uploaded a new file and asked a question.",
+              "The answer also included content from older files.",
+              "Sometimes it even referenced \"Document1, Document2…\" from previous uploads."
+            ]},
+            { type: "p", text: "It made no sense at first. Then I discovered that the issue wasn't with the LLM. It was with the vector database." },
+            { type: "h", text: "What was happening" },
+            { type: "p", text: "ChromaDB keeps all embeddings from previous files unless you manually clear them. So every new query was searching across all past uploads, mixing the answers." },
+            { type: "h", text: "The fix" },
+            { type: "p", text: "Before embedding the newly uploaded file, I added:" },
+            { type: "code", text: "self.vector_store.clear_collection()  # took a long time to learn and find" },
+            { type: "p", text: "Now AskFile answers only from the current file, with clean and accurate responses." },
+            { type: "h", text: "Takeaway" },
+            { type: "p", text: "Many RAG issues aren't model problems. They're vector store problems. If your app mixes answers from previous documents, clear your collection before adding new embeddings." },
+            { type: "p", text: "Clean vector DB = clean output." },
+            { type: "img", src: "images/BLOG%20IMAGES/askfileai-clear-collection.png", alt: "Screenshot of chroma_store.py with an arrow pointing at self.vector_store.clear_collection() inside the ask method." }
           ]
         }
       ]
     },
     photography: {
-      note: "Replace a photo src with your image URL in SITE_DATA.photography.photos.",
-      categories: ["Nature", "Street", "Portrait"],
+      note: "",
+      categories: ["Anime"],
       photos: [
-        { src: null, alt: "Placeholder photo 01, rolling light", caption: "Photo 01 — placeholder gradient", category: "Nature", date: "2026", location: "[ADD LOCATION]", exif: {} },
-        { src: null, alt: "Placeholder photo 02, green field", caption: "Photo 02 — placeholder gradient", category: "Nature", date: "2026", location: "[ADD LOCATION]", exif: {} },
-        { src: null, alt: "Placeholder photo 03, dusk hill", caption: "Photo 03 — placeholder gradient", category: "Nature", date: "2026", location: "[ADD LOCATION]", exif: {} },
-        { src: null, alt: "Placeholder photo 04, street corner", caption: "Photo 04 — placeholder gradient", category: "Street", date: "2026", location: "[ADD LOCATION]", exif: {} },
-        { src: null, alt: "Placeholder photo 05, neon sign", caption: "Photo 05 — placeholder gradient", category: "Street", date: "2026", location: "[ADD LOCATION]", exif: {} },
-        { src: null, alt: "Placeholder photo 06, portrait study", caption: "Photo 06 — placeholder gradient", category: "Portrait", date: "2026", location: "[ADD LOCATION]", exif: {} },
-        { src: null, alt: "Placeholder photo 07, window light", caption: "Photo 07 — placeholder gradient", category: "Portrait", date: "2026", location: "[ADD LOCATION]", exif: {} },
-        { src: null, alt: "Placeholder photo 08, profile", caption: "Photo 08 — placeholder gradient", category: "Portrait", date: "2026", location: "[ADD LOCATION]", exif: {} }
+        { src: "images/PHOTOGRAPHY/Screenshot%202026-09-26%20230234.png", alt: "Anime close-up lit in blue and red, with a blade between two faces", caption: "Blue and red close-up", category: "Anime", date: "", location: "", exif: {} },
+        { src: "images/PHOTOGRAPHY/Screenshot%202026-09-26%20230515.png", alt: "Anime portrait of a bald figure against a dark blue background", caption: "Blue portrait", category: "Anime", date: "", location: "", exif: {} },
+        { src: "images/PHOTOGRAPHY/Screenshot%202026-10-07%20235543.png", alt: "Anime still of a figure with hands crossed, captioned I call it the Angel Hug", caption: "Angel Hug", category: "Anime", date: "", location: "", exif: {} }
       ]
     },
-    guestbook: [
-      { name: "Ada (sample)", date: "01 Apr 2003", text: "[SAMPLE] Neat site — love the CRT glow." },
-      { name: "Linus (sample)", date: "02 Apr 2003", text: "[SAMPLE] Sign my guestbook and I will sign yours." },
-      { name: "Geocities Fan (sample)", date: "03 Apr 2003", text: "[SAMPLE] Best viewed in 1024×768." }
-    ],
     settings: { soundDefault: false, defaultTab: "portfolio", defaultMode: "y2k" }
   };
 
@@ -1107,7 +1273,7 @@
     wins: [],
     boot: true,
     status: "Ready.",
-    visitors: 128,
+    visitors: 614,
     route: { tab: "portfolio", rest: [] },
     projectFilter: "All",
     blogFilter: "All",
@@ -1273,6 +1439,52 @@
     const n = TIER[tier] || 1;
     return `<span class="meter t-${esc(tier)}" aria-label="${esc(tier)}">${[1,2,3].map(i => `<b class="${i<=n?"on":""}"></b>`).join("")}</span>`;
   }
+  function projectCover(pr) {
+    if (pr.image) return `<div class="faux has-img"><img src="${esc(pr.image)}" alt="${esc(pr.title)} screenshot"></div>`;
+    return `<div class="faux">${esc(pr.title)}</div>`;
+  }
+  function projectBrief(pr) {
+    const b = pr.brief;
+    if (!b) return "";
+    return `<dl class="wwhr">
+      <div><dt class="k-what">What</dt><dd>${esc(b.what)}</dd></div>
+      <div><dt class="k-why">Why</dt><dd>${esc(b.why)}</dd></div>
+      <div><dt class="k-how">How</dt><dd>${esc(b.how)}</dd></div>
+      <div><dt class="k-result">Result</dt><dd>${esc(b.result)}</dd></div>
+    </dl>`;
+  }
+  function renderNormalCurve() {
+    const pdf = x => Math.exp(-0.5 * x * x) / Math.sqrt(2 * Math.PI);
+    const xMin = -3.4, xMax = 3.4, steps = 96;
+    const W = 640, H = 188, L = 28, R = 16, T = 12, B = 32;
+    const yMax = pdf(0) * 1.12;
+    const X = x => L + (x - xMin) / (xMax - xMin) * (W - L - R);
+    const Y = y => T + (1 - y / yMax) * (H - T - B);
+    const samples = [];
+    for (let i = 0; i <= steps; i++) {
+      const x = xMin + (i / steps) * (xMax - xMin);
+      samples.push([X(x), Y(pdf(x)), x]);
+    }
+    const line = samples.map((p, i) => `${i ? "L" : "M"}${p[0].toFixed(1)} ${p[1].toFixed(1)}`).join(" ");
+    const bandPts = samples.filter(p => p[2] >= -1 && p[2] <= 1);
+    const base = Y(0);
+    const band = `M${bandPts[0][0].toFixed(1)} ${base.toFixed(1)} ` +
+      bandPts.map(p => `L${p[0].toFixed(1)} ${p[1].toFixed(1)}`).join(" ") +
+      ` L${bandPts[bandPts.length - 1][0].toFixed(1)} ${base.toFixed(1)} Z`;
+    const marks = [[-2, "−2σ"], [-1, "−1σ"], [0, "μ"], [1, "+1σ"], [2, "+2σ"]];
+    const guides = marks.map(([x, label]) => {
+      const px = X(x);
+      return `<line class="tick" x1="${px.toFixed(1)}" y1="${Y(pdf(x)).toFixed(1)}" x2="${px.toFixed(1)}" y2="${base.toFixed(1)}"></line><text x="${px.toFixed(1)}" y="${(base + 20).toFixed(1)}" text-anchor="middle">${label}</text>`;
+    }).join("");
+    return `<svg class="bell-svg" viewBox="0 0 ${W} ${H}" role="img" aria-label="Normal distribution. The shaded band from minus one sigma to plus one sigma holds about 68 percent of the area.">
+      <line class="axis" x1="${L}" y1="${base.toFixed(1)}" x2="${W - R}" y2="${base.toFixed(1)}"></line>
+      <path class="band" d="${band}"></path>
+      ${guides}
+      <path class="curve" d="${line}"></path>
+      <text class="band-label" x="${X(0).toFixed(1)}" y="${((Y(pdf(0)) + base) / 2).toFixed(1)}" text-anchor="middle">68%</text>
+    </svg>`;
+  }
+
   function renderPortfolio() {
     const d = SITE_DATA;
     const p = d.portfolio;
@@ -1292,7 +1504,7 @@
           <section id="sec-home" class="panel">
             <div class="hero">
               <div class="polaroid">
-                <div class="badge-face">${d.meta.photo ? `<img src="${esc(d.meta.photo)}" alt="Portrait of ${esc(d.meta.name)}">` : "[ADD PHOTO]"}</div>
+                <div class="badge-face">${d.meta.photo ? `<img src="${esc(encodeURI(d.meta.photo))}" alt="Portrait of ${esc(d.meta.name)}">` : "[ADD PHOTO]"}</div>
                 ID · ${esc(d.meta.name)}
               </div>
               <div>
@@ -1313,8 +1525,7 @@
             <h2 class="section-h">About me</h2>
             <p>${esc(p.about.summary)}</p>
             <p><strong>Languages:</strong> ${esc(p.about.languages)}</p>
-            <p><strong>Clubs:</strong> ${p.about.clubs.map(esc).join(", ")}</p>
-            <p><strong>Interests:</strong> ${p.about.interests.map(esc).join(" · ")}</p>
+            <p><strong>Interests:</strong> ${(p.about.interests || []).map(esc).join(" · ")}</p>
           </section>
           <section id="sec-education" class="panel">
             <h2 class="section-h">Education</h2>
@@ -1338,7 +1549,7 @@
               <div class="flip" data-slug="${esc(pr.slug)}">
                 <div class="flip-inner">
                   <div class="face front">
-                    <div class="faux">${esc(pr.title)}</div>
+                    ${projectCover(pr)}
                     <strong>${esc(pr.title)}</strong>
                     <p class="muted">${esc(pr.summary)}</p>
                   </div>
@@ -1366,7 +1577,7 @@
               ${p.skills.categories.map(c => {
                 const tiers = ["Advanced", "Proficient", "Familiar"];
                 return `<details class="tree-folder" open>
-                  <summary>${esc(c.name)} — ${c.items.length} skills</summary>
+                  <summary>${esc(c.name)} — ${c.items.length} skills<\/summary>
                   ${tiers.map(tier => {
                     const items = c.items.filter(it => it.tier === tier);
                     if (!items.length) return "";
@@ -1379,13 +1590,13 @@
                       </div>`).join("")}
                     </div>`;
                   }).join("")}
-                </details>`;
+                <\/details>`;
               }).join("")}
             </div>
           </section>
           <section id="sec-certs" class="panel">
             <h2 class="section-h">Certifications & achievements</h2>
-            <div class="certs">${p.certifications.map(c => `<div class="frame"><div class="inner"><strong>${esc(c.name)}</strong><p class="muted">${esc(c.org)}</p></div></div>`).join("")}</div>
+            <div class="certs">${p.certifications.map(c => `<div class="frame"><div class="inner"><strong>${esc(c.name)}</strong><p class="muted">${esc(c.org)}</p>${c.url ? `<a class="cert-btn" href="${esc(c.url)}" target="_blank" rel="noopener">View certificate</a>` : `<span class="muted">[ADD CERTIFICATE LINK]</span>`}</div></div>`).join("")}</div>
             <h3>Trophy shelf</h3>
             <div class="shelf">${p.achievements.map(a => `<div class="trophy"><div class="cup"></div>${esc(a.name)}</div>`).join("")}</div>
             ${p.achievements.map(a => `<p><strong>${esc(a.name)}</strong>${a.detail ? " — " + esc(a.detail) : ""}</p>`).join("")}
@@ -1422,12 +1633,15 @@
             <div class="row" style="margin-top:10px">
               <a class="aqua" href="${esc(d.links.github)}" target="_blank" rel="noopener">GitHub</a>
               <a class="aqua" href="${esc(d.links.linkedin)}" target="_blank" rel="noopener">LinkedIn</a>
+              <a class="aqua" href="${esc(d.links.instagram)}" target="_blank" rel="noopener">Instagram</a>
               <a class="aqua" href="tel:${esc(d.meta.phone)}">Call</a>
-              ${d.links.twitter ? `<a class="aqua" href="${esc(d.links.twitter)}">Twitter</a>` : `<span class="muted">[ADD TWITTER]</span>`}
             </div>
-            <h3>Guestbook (decorative — not stored)</h3>
-            <div class="gb">${d.guestbook.map(g => `<article><strong>${esc(g.name)}</strong> <span class="muted">${esc(g.date)}</span><p>${esc(g.text)}</p></article>`).join("")}</div>
-            <p class="muted">Entries are sample-only. Nothing you type here is saved.</p>
+            <div class="bell">
+              <h3>Normal distribution</h3>
+              ${renderNormalCurve()}
+              <p><strong>I like this one.</strong> Scores pile up near the average and thin out in the tails.</p>
+              <p class="muted">Most résumés sit in that shaded middle. I train transformers from scratch, ship offline RAG, and I have already served models in production.</p>
+            </div>
           </section>
         </div>
       </div>`;
@@ -1440,7 +1654,10 @@
       if (b.type === "quote") return `<blockquote class="panel">${esc(b.text)}</blockquote>`;
       if (b.type === "code") return `<pre class="codewin">${esc(b.text)}</pre>`;
       if (b.type === "ul") return `<ul>${b.items.map(i => `<li>${esc(i)}</li>`).join("")}</ul>`;
-      if (b.type === "img") return `<img alt="${esc(b.alt||"")}" src="${esc(b.src)}" style="max-width:100%">`;
+      if (b.type === "img") {
+        if (!b.src) return `<p class="panel muted">Photo coming.</p>`;
+        return `<img class="blog-photo" alt="${esc(b.alt||"")}" src="${esc(b.src)}">`;
+      }
       return `<p>${esc(b.text)}</p>`;
     }).join("");
   }
@@ -1465,29 +1682,31 @@
         <div class="blog-banner">My Blog</div>
         <p class="crumb">Home &gt; Blogs &gt; ${esc(post.title)}</p>
         <button class="aqua" data-go="#/blogs" type="button">Back to all posts</button>
-        <h1>${esc(post.title)} ${post.sample ? "<span class='blink'>[SAMPLE]</span>":""}</h1>
+        <h1>${esc(post.title)}</h1>
         <p class="muted">${esc(post.date)} · ${esc(post.category)} · ${readTime(words(post.content))} · ${post.tags.map(esc).join(", ")}</p>
         ${renderBlocks(post.content)}
-        <p><button class="aqua" type="button" data-copy="${esc(location.origin + location.pathname + "#/blogs/" + post.slug)}">Copy link</button></p>
-        <p class="muted">Comments are disabled in this demo.</p>
-        <p>${prev ? `<a href="#/blogs/${prev.slug}">« ${esc(prev.title)}</a>` : ""} ${next ? `<a href="#/blogs/${next.slug}" style="float:right">${esc(next.title)} »</a>` : ""}</p>
+        <p class="row"><button class="aqua" type="button" data-copy="${esc(location.origin + location.pathname + "#/blogs/" + post.slug)}">Copy link</button>${post.linkedin ? `<a class="aqua" href="${esc(post.linkedin)}" target="_blank" rel="noopener">See this on LinkedIn</a>` : ""}</p>
+        <div class="post-nav">
+          ${prev ? `<button class="aqua post-dir" type="button" data-go="#/blogs/${esc(prev.slug)}" aria-label="Older post: ${esc(prev.title)}">◀</button>` : `<button class="aqua post-dir" type="button" disabled aria-label="No older post">◀</button>`}
+          ${next ? `<button class="aqua post-dir" type="button" data-go="#/blogs/${esc(next.slug)}" aria-label="Newer post: ${esc(next.title)}">▶</button>` : `<button class="aqua post-dir" type="button" disabled aria-label="No newer post">▶</button>`}
+        </div>
       </div>`;
     }
     const counts = {};
     posts.forEach(p => counts[p.category] = (counts[p.category]||0)+1);
     return `<div id="view">
-      <div class="blog-banner">My Blog <span class="blink">[SAMPLE]</span></div>
-      <p class="panel">${esc(B.note)}</p>
+      <div class="blog-banner">My Blog</div>
+      ${B.note ? `<p class="panel">${esc(B.note)}</p>` : ""}
       <div class="blog-layout">
         <div>
           <div class="filters">${cats.map(c => `<button class="chip ${state.blogFilter===c?"on":""}" data-blogcat="${esc(c)}" type="button">${esc(c)}</button>`).join("")}</div>
-          ${page.map(p => `
+          ${page.length ? page.map(p => `
             <article class="post-card">
-              <h3><a href="#/blogs/${esc(p.slug)}" data-go="#/blogs/${esc(p.slug)}">${esc(p.title)}</a> ${p.sample?"<span class='blink'>[SAMPLE]</span>":""}</h3>
+              <h3><a href="#/blogs/${esc(p.slug)}" data-go="#/blogs/${esc(p.slug)}">${esc(p.title)}</a></h3>
               <p class="muted">${esc(p.date)} · <span class="pill">${esc(p.category)}</span> · ${readTime(words(p.content))}</p>
               <p>${esc(p.excerpt)}</p>
               <a href="#/blogs/${esc(p.slug)}" data-go="#/blogs/${esc(p.slug)}">Read more &gt;&gt;</a>
-            </article>`).join("")}
+            </article>`).join("") : `<p class="muted">No posts yet.</p>`}
           ${list.length > page.length ? `<button class="aqua" type="button" id="loadmore">Load more</button>`:""}
         </div>
         <aside class="panel">
@@ -1497,13 +1716,6 @@
           <input id="blogq" value="${esc(state.blogQuery)}" placeholder="Search...">
           <h4>Categories</h4>
           ${B.categories.map(c => `<div>${esc(c)} (${counts[c]||0})</div>`).join("")}
-          <h4>Tag cloud</h4>
-          <div class="pills">${[...new Set(posts.flatMap(p=>p.tags))].map(t => `<button class="chip" data-blogcat="${esc(t)}" type="button">${esc(t)}</button>`).join("")}</div>
-          <h4>Archive</h4>
-          ${[...new Set(posts.map(p => p.date.slice(0,7)))].map(m => `<div>${esc(m)}</div>`).join("")}
-          <p><button class="aqua warn" type="button" data-rss>RSS.xml</button></p>
-          <h4>Recent comments</h4>
-          <p class="muted">[SAMPLE] “Nice CRT.” — Ada<br>[SAMPLE] No real comments are stored.</p>
         </aside>
       </div>
     </div>`;
@@ -1520,15 +1732,15 @@
     const cats = ["All", ...P.categories];
     const photos = visiblePhotos();
     return `<div id="view">
-      <div class="blog-banner">Photography ⌯ <span class="blink">[SAMPLE]</span></div>
-      <p class="panel">${esc(P.note)}</p>
+      <div class="blog-banner">Photography</div>
+      ${P.note ? `<p class="panel">${esc(P.note)}</p>` : ""}
       <div class="filters">${cats.map(c => `<button class="chip ${state.photoFilter===c?"on":""}" data-photocat="${esc(c)}" type="button">${esc(c)}</button>`).join("")}
         <button class="chip ${state.contactSheet?"on":""}" data-sheet type="button">Contact sheet</button>
       </div>
       <p class="muted">${photos.length} photo${photos.length===1?"":"s"}</p>
       <div class="prints ${state.contactSheet?"contact-sheet":""}">${photos.map((p,i) => `
-        <figure class="print" style="transform:rotate(${(i%2?2:-2)}deg)" data-lb-idx="${i}">
-          ${p.src ? `<img loading="lazy" alt="${esc(p.alt)}" src="${esc(p.src)}">` : `<div class="ph" style="height:110px">${esc("Photo 0"+(i+1))}</div>`}
+        <figure class="print" data-lb-idx="${i}">
+          ${p.src ? `<img loading="lazy" alt="${esc(p.alt)}" src="${esc(p.src)}">` : `<div class="ph">${esc("Photo 0"+(i+1))}</div>`}
           <figcaption>${esc(p.caption)}</figcaption>
         </figure>`).join("")}</div>
     </div>`;
@@ -1552,7 +1764,7 @@
       <button class="lb-x" type="button" data-lbclose aria-label="Close">×</button>
       ${p.src ? `<img alt="${esc(p.alt)}" src="${esc(src)}">` : `<div class="ph" style="width:min(720px,90vw);height:50vh">${esc(p.caption)}</div>`}
       <h3>${esc(p.caption)}</h3>
-      <p>${esc(p.category || "")} · ${esc(p.date || "")} · ${esc(p.location || "")}</p>
+      <p>${[p.category, p.location].filter(Boolean).map(esc).join(" · ")}</p>
       ${ex ? `<p class="muted">${ex}</p>`:""}
       <div class="lb-nav">
         <button class="aqua" type="button" data-lbstep="-1">Prev</button>
@@ -1612,11 +1824,16 @@
     const r = state.route;
     const valid = ["portfolio","blogs","photography","sitemap"];
     let body;
-    if (r.tab === "portfolio") body = renderPortfolio();
-    else if (r.tab === "blogs") body = renderBlogs();
-    else if (r.tab === "photography") body = renderPhotography();
-    else if (r.tab === "sitemap") body = renderSitemap();
-    else body = render404();
+    try {
+      if (r.tab === "portfolio") body = renderPortfolio();
+      else if (r.tab === "blogs") body = renderBlogs();
+      else if (r.tab === "photography") body = renderPhotography();
+      else if (r.tab === "sitemap") body = renderSitemap();
+      else body = render404();
+    } catch (err) {
+      console.error(err);
+      body = `<div id="view" class="panel"><h2>Could not open this tab</h2><p>${esc(err && err.message)}</p></div>`;
+    }
     const clock = new Date().toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" });
     $("#os").innerHTML = `
       <div class="os-tabs" role="tablist">
@@ -1644,7 +1861,7 @@
         </div>
       </div>
       <div class="status">
-        <span class="odo" title="Decorative counter, not real analytics">You are visitor #${String(state.visitors).padStart(6,"0")}</span>
+        <span class="odo" title="Decorative counter, not real analytics">You are visitor #${state.visitors}</span>
         <a href="#/sitemap">Site map</a>
         <a href="#/plain">Plain version</a>
         <span class="muted">Sound ${state.muted?"off":"on"} · ${state.mode} · ${state.theme}</span>
@@ -1711,23 +1928,31 @@
     if (t.dataset.focus) { focusWin(t.dataset.focus); return true; }
     return false;
   }
+  function projectLinks(pr) {
+    return `<div class="proj-links">
+      ${pr.github ? `<a class="aqua" href="${esc(pr.github)}" target="_blank" rel="noopener">GitHub</a>` : `<span class="pill">[ADD GITHUB LINK]</span>`}
+      ${pr.demo ? `<a class="aqua" href="${esc(pr.demo)}" target="_blank" rel="noopener">Live Demo</a>` : `<span class="muted">[ADD LIVE DEMO]</span>`}
+    </div>`;
+  }
   function openProject(slug) {
     const pr = SITE_DATA.portfolio.projects.find(p => p.slug === slug);
     if (!pr) return;
     openWin("p-"+slug, pr.title, `
-      <div class="faux">${esc(pr.title)}</div>
-      <p>${esc(pr.description)}</p>
+      ${projectCover(pr)}
+      ${projectLinks(pr)}
+      ${projectBrief(pr)}
       <p><strong>Role:</strong> ${esc(pr.role)}</p>
       <div class="pills">${pr.tech.map(t => `<span class="pill" style="background:#245EDC;color:#fff">${esc(t)}</span>`).join("")}</div>
-      ${pr.outcomes?.length ? `<ul>${pr.outcomes.map(o => `<li>${esc(o)}</li>`).join("")}</ul>`:""}
-      <p>${pr.github ? `<a class="aqua" href="${esc(pr.github)}" target="_blank" rel="noopener">GitHub</a>` : "[ADD GITHUB LINK]"}
-      ${pr.demo ? `<a class="aqua" href="${esc(pr.demo)}" target="_blank" rel="noopener">Live Demo</a>` : " [ADD LIVE DEMO]"}</p>`);
+      ${pr.outcomes?.length ? `<ul>${pr.outcomes.map(o => `<li>${esc(o)}</li>`).join("")}</ul>`:""}`);
   }
   function doSearch(q) {
     q = (q||"").trim().toLowerCase();
     if (!q) return;
     const hits = [];
-    SITE_DATA.portfolio.projects.forEach(p => { if ((p.title+p.description+p.tech.join(" ")).toLowerCase().includes(q)) hits.push(`<li><a href="#/portfolio/projects">${esc(p.title)}</a> (project)</li>`); });
+    SITE_DATA.portfolio.projects.forEach(p => {
+      const blob = [p.title, p.description, p.tech.join(" "), p.brief && [p.brief.what, p.brief.why, p.brief.how, p.brief.result].join(" ")].filter(Boolean).join(" ").toLowerCase();
+      if (blob.includes(q)) hits.push(`<li><a href="#/portfolio/projects">${esc(p.title)}</a> (project)</li>`);
+    });
     SITE_DATA.blogs.posts.forEach(p => { if ((p.title+p.excerpt).toLowerCase().includes(q)) hits.push(`<li><a href="#/blogs/${p.slug}">${esc(p.title)}</a> (post)</li>`); });
     SITE_DATA.photography.photos.forEach(p => { if ((p.caption + " " + (p.category||"")).toLowerCase().includes(q)) hits.push(`<li><a href="#/photography">${esc(p.caption)}</a> (photo)</li>`); });
     openWin("search", "Search results", hits.length ? `<ul>${hits.join("")}</ul>` : "<p>No matches. Try another keyword.</p>");
@@ -1746,13 +1971,14 @@
       <h2>About</h2><p>${esc(p.about.summary)}</p>
       <h2>Education</h2><ul>${p.education.map(e => `<li>${esc(e.degree)}, ${esc(e.institute)}, ${esc(e.years)}, ${esc(e.grade)}</li>`).join("")}</ul>
       <h2>Experience</h2>${p.experience.map(e => `<h3>${esc(e.title)}, ${esc(e.company)}</h3><p>${esc(e.dates)}, ${esc(e.location)}</p><ul>${e.bullets.map(b=>`<li>${esc(b)}</li>`).join("")}</ul>`).join("")}
-      <h2>Projects</h2>${p.projects.map(pr => `<h3>${esc(pr.title)}</h3><p>${esc(pr.description)}</p><p>Tech: ${pr.tech.map(esc).join(", ")}</p>`).join("")}
+      <h2>Projects</h2>${p.projects.map(pr => `<h3>${esc(pr.title)}</h3>${pr.brief ? `<p><strong>What:</strong> ${esc(pr.brief.what)}</p><p><strong>Why:</strong> ${esc(pr.brief.why)}</p><p><strong>How:</strong> ${esc(pr.brief.how)}</p><p><strong>Result:</strong> ${esc(pr.brief.result)}</p>` : `<p>${esc(pr.description)}</p>`}<p>Tech: ${pr.tech.map(esc).join(", ")}</p>`).join("")}
       <h2>Skills</h2>${p.skills.categories.map(c => `<h3>${esc(c.name)}</h3><p>${c.items.map(i => esc(i.name)+" ("+esc(i.tier)+")").join(", ")}</p>`).join("")}
-      <h2>Certifications</h2><ul>${p.certifications.map(c => `<li>${esc(c.name)} — ${esc(c.org)}</li>`).join("")}</ul>
+      <h2>Certifications</h2><ul>${p.certifications.map(c => `<li>${esc(c.name)} — ${esc(c.org)}${c.url ? ` — <a href="${esc(c.url)}" target="_blank" rel="noopener">View certificate</a>` : ""}</li>`).join("")}</ul>
       <h2>Achievements</h2><ul>${p.achievements.map(a => `<li>${esc(a.name)} ${esc(a.detail||"")}</li>`).join("")}</ul>
       <h2>Leadership</h2><ul>${p.leadership.map(l => `<li>${esc(l.name)} — ${esc(l.detail)}</li>`).join("")}</ul>
-      <h2>Blogs</h2><ul>${d.blogs.posts.map(x => `<li>${esc(x.title)} ${x.sample?"[SAMPLE]":""}</li>`).join("")}</ul>
+      <h2>Blogs</h2><ul>${d.blogs.posts.length ? d.blogs.posts.map(x => `<li>${esc(x.title)}</li>`).join("") : "<li>No posts yet.</li>"}</ul>
       <h2>Photography</h2><ul>${d.photography.photos.map(p => `<li>${esc(p.caption)} [${esc(p.category)}]</li>`).join("")}</ul>
+      <h2>Normal distribution</h2><p>I like this one. Scores pile up near the average and thin out in the tails. Most résumés sit in that shaded middle. I train transformers from scratch, ship offline RAG, and I have already served models in production.</p>
       <p><a href="${esc(p.resume.url)}">Download resume</a></p>`;
   }
 
@@ -1798,7 +2024,13 @@
     document.addEventListener("click", e => {
       const t = e.target.closest("[data-go],[data-filter],[data-open-project],[data-blogcat],[data-photocat],[data-sheet],[data-lb-idx],[data-start],[data-theme-btn],[data-mode-btn],[data-mute],[data-zoom],[data-desk],[data-rss],[data-copy],[data-side],[data-focus]");
       if (t) { handleAction(t, e); return; }
-      if (e.target.closest(".flip")) e.target.closest(".flip").classList.toggle("flipped");
+      const flip = e.target.closest(".flip");
+      if (!flip) return;
+      if (CONFIG.mobile()) {
+        if (flip.dataset.slug) openProject(flip.dataset.slug);
+        return;
+      }
+      flip.classList.toggle("flipped");
     });
     $("#windows").addEventListener("click", e => {
       const btn = e.target.closest("[data-act]");

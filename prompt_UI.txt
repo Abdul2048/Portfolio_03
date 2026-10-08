@@ -1,0 +1,152 @@
+# ROLE
+You are a senior creative front-end developer and UI designer who specializes in nostalgic, skeuomorphic web design and CSS/WebGL 3D. Build a complete personal portfolio website for me.
+
+# SOURCE OF TRUTH
+- I have attached my resume. It is the ONLY source of content.
+- Never invent projects, employers, dates, metrics, awards, links, or skills.
+- If something is missing (photo, GitHub link, demo link, phone, etc.), insert a clearly visible placeholder like [ADD GITHUB LINK] and list it at the end.
+- Rewrite resume bullets into clean, concise portfolio copy, but keep every fact accurate.
+- Infer a suitable job title and tagline from the resume, and tell me what you chose.
+
+# CORE CONCEPT
+A realistic, 3D, skeuomorphic early-2000s (Y2K to 2005) personal website. The visitor feels like they are sitting at a real desk in front of a CRT/early-LCD computer in a 2003-era bedroom or study. Content opens inside glossy, draggable OS-style windows on that computer's screen. The experience mixes three eras: Windows XP "Luna" and Mac OS X "Aqua" UI, Flash-era personal websites, and GeoCities/Angelfire web culture.
+
+# 1. VISUAL DESIGN SYSTEM
+
+## 1.1 Color palette (define as CSS custom properties)
+- --blue-deep: #0A246A; --blue-luna: #245EDC; --blue-light: #5A9CF5; --sky: #A8D4FF
+- --aqua-glow: #6CB8FF; --silver: #D4D8DE; --silver-dark: #8E959F
+- --white-gloss: #FFFFFF; --ink: #1A1F2B
+- --accent-green: #6BC72B (start-button / success); --accent-orange: #FF8A1F (warnings / "NEW!")
+- Wood desk: #8B5A2B to #5C3A1A gradient with grain texture
+- Wallpaper: a "rolling green hills under a blue sky" scene drawn in pure CSS/SVG (inspired by, but not copying, Windows XP's Bliss; use original shapes and gradients)
+
+## 1.2 Material recipes (use these consistently)
+- Glossy Aqua button: vertical linear-gradient (light top to saturated bottom), a white semi-transparent ellipse highlight over the top 50%, 1px dark border, inner box-shadow glow, outer soft drop shadow. Pressed state shifts gradient darker and inverts the inner shadow.
+- Window chrome (XP Luna style): rounded top corners (8px), blue gradient title bar with bold white text and text-shadow, three round glossy control buttons (minimize, maximize, close in red-orange), 3px beveled blue frame, light-grey content area with inset border.
+- Brushed metal: repeating-linear-gradient plus subtle SVG noise filter, used for the taskbar, monitor bezel, and side panels.
+- Glass panels: backdrop-filter blur, 15-25% white overlay, 1px white inner border, soft shadow.
+- Plastic bezels: off-white/beige (#E8E2D0) CRT or silver LCD casing with a visible bevel, vent lines, a power LED that glows, and a tiny brand badge reading my name or "Portfolio 2003".
+- Add a subtle CRT effect inside the monitor: faint scanlines, slight vignette, a very light flicker (all removable by reduced-motion or a toggle).
+
+## 1.3 Typography
+- UI text: Tahoma, Verdana, "Trebuchet MS", "Lucida Grande", sans-serif. Base size 12-13px for window UI, 16px+ for reading content.
+- Headings and logo: Trebuchet MS bold, or a chunky "Y2K" display style created with CSS (text-shadow stacking, gradient fill via background-clip, outline stroke).
+- Retro/pixel accents only for tiny badges, the counter, and the clock; use a CSS-drawn pixel font or "Courier New" fallback. Do not load fonts from unapproved hosts. Google Fonts is allowed (e.g., "Press Start 2P" or "VT323") with a fallback stack.
+- Ensure body text contrast meets WCAG AA.
+
+# 2. THE 3D SCENE (REAL 3D, NOT FAKE)
+
+## 2.1 Technique
+Choose ONE and commit: (A) CSS 3D transforms (perspective, preserve-3d, translateZ, rotateX/Y), or (B) Three.js r128 from cdnjs with procedural geometry. Prefer (A) unless real lighting is essential. No external model, texture, or image files. Everything is CSS, inline SVG, canvas-generated textures, or procedural geometry.
+
+## 2.2 Room layout (all objects are interactive hotspots)
+- Desk surface with wood grain, a desk mat, and soft contact shadows.
+- Center: CRT monitor (or chunky early LCD) with the OS desktop on its screen. This is the main stage.
+- Beige keyboard and a ball-mouse with cable (keys depress in 3D on hover or press).
+- Left: stack of CD/DVD cases. Clicking one opens SKILLS; each case is labeled like a software box ("Skills 2003 Edition").
+- Right: spiral notebook and pen. Clicking opens RESUME / EXPERIENCE.
+- Back wall: a corkboard with sticky notes, printed photos, and a poster. Clicking opens ABOUT ME.
+- A desk lamp whose light cone changes with a day/night toggle.
+- A Rolodex or business-card holder: clicking opens CONTACT.
+- A floppy disk labeled "Resume.pdf": clicking downloads or links the resume.
+- Optional extras: a mug, a plant, a sticky note with the visitor counter, a lava lamp. Keep them tasteful.
+
+## 2.3 Camera and motion
+- Default camera: slightly elevated, looking at the desk, with the monitor centered.
+- Mouse-move parallax (objects at different translateZ shift at different rates).
+- Clicking a hotspot smoothly eases the camera toward the object, then opens its window. Include a "Back to desk" button.
+- Clicking the monitor zooms the camera INTO the screen, so the OS desktop fills the viewport (full-screen desktop mode).
+- All transitions use cubic-bezier easing, 400-900ms, and run at 60fps using transform and opacity only.
+
+# 3. THE DESKTOP OS (INSIDE THE MONITOR)
+
+- Wallpaper, desktop icons (My Projects, About Me, Skills, Experience, Contact, Resume, Recycle Bin, Guestbook), double-click or Enter to open.
+- Taskbar: green glossy "Start" button with a start menu (all sections plus social links), quick-launch icons, open-window tabs, system tray with a live clock, volume/mute icon, and a tiny network icon.
+- Window manager: windows are draggable, focusable (z-index stacking), minimizable to the taskbar, maximizable, closable, and open with a small zoom/fade animation. Cascade positions so windows do not stack exactly.
+- Right-click context menu on the desktop with fun items (Refresh, Properties, "View Source").
+- Boot sequence on first load: a BIOS-style text screen, then a "Loading Portfolio..." progress bar, then the desktop. Total under 4 seconds, with a visible "Skip" button, and shown once per session.
+- Fun system dialogs: a fake "Your portfolio has performed an illegal operation" error as an easter egg, a "Clippy-style" helper (an original character, not Microsoft's) giving tips, and a Recycle Bin containing "unused ideas".
+
+# 4. CONTENT MAPPING (FROM MY RESUME)
+
+1. HOME / DESKTOP: My name in big glossy text, title, one-line tagline, photo placeholder in a framed "polaroid" or ID-badge style, and a "Welcome" window on load.
+2. ABOUT ME (corkboard + Notepad/Word window): summary, education (degree, institution, years, grades if present), location, languages, interests. Written in first person, short paragraphs.
+3. PROJECTS (monitor / "My Projects" folder): each project is a file or app icon that opens a window with:
+   - Title, one-line summary, full description
+   - Tech stack as small glossy "tag" pills
+   - My role and key outcomes (only if in the resume)
+   - Buttons: [Live Demo] [GitHub] (or placeholders)
+   - A placeholder screenshot area with a CSS-drawn faux screenshot
+   - A 3D flip card on the folder view (front = title and image, back = stack and links)
+4. SKILLS (CD case / "System Properties" or "Device Manager" window): group skills into categories (Languages, Frameworks, Tools, Databases, Soft skills) using only skills in the resume. Display as XP-style progress bars OR a "Control Panel" with icons. Do NOT fabricate percentage levels; if the resume gives none, show levels as qualitative tiers (Familiar / Proficient / Advanced) that I can edit.
+5. EXPERIENCE (notebook / "My Computer" file-explorer window): a timeline or folder tree. Each role has company, title, dates, location, and 2-4 bullet points.
+6. EDUCATION & CERTIFICATIONS: shown as framed certificates on the wall or "Diploma.doc" files.
+7. ACHIEVEMENTS / EXTRAS: trophies or badges on a shelf, plus 88x31 style pixel badges (e.g., "Made with <3", "Best viewed in 1024x768", "Valid HTML") as decoration.
+8. CONTACT (Rolodex / "Outlook Express"-style mail window or MSN-Messenger-style chat window): a mock compose window with To/Subject/Body that uses a mailto: link, a visible email address, plus LinkedIn, GitHub, and any other links from the resume, shown as glossy buttons. Add a status line like "Available for work" only if I confirm it.
+9. RESUME: a glossy "Download Resume" button, plus an in-window preview or placeholder link.
+10. GUESTBOOK (decorative, front-end only): preloaded with 3 clearly fictional sample entries marked as samples, and a note that it does not store real data.
+11. VISITOR COUNTER: a "You are visitor #000123" odometer-style display. Make it clearly decorative (a fake incrementing number that does not claim to be real analytics).
+
+# 5. INTERACTION AND POLISH
+
+- Hover: raised glow on buttons, tooltips with a yellow XP-style balloon, subtle sound-free feedback.
+- Custom cursor (CSS, with a fallback to the default) and a hourglass/busy cursor during transitions.
+- Optional sound effects (click, window open, startup chime) created with the Web Audio API (no audio files). OFF by default with a clearly visible mute/unmute toggle. Never autoplay.
+- Day/Night toggle for the room (lamp on, monitor glow brighter) and a "Y2K mode / Clean modern mode" toggle that strips heavy effects but keeps layout.
+- Konami code or clicking the power button triggers a harmless easter egg (e.g., a shutdown animation, then a restart).
+- "Under Construction" and "NEW!" blinking tags used at most twice.
+- 404-style joke for any dead placeholder link ("Page not found, but I am!").
+
+# 6. RESPONSIVE BEHAVIOR
+
+- Desktop (above 1024px): full 3D room and window manager.
+- Tablet (640-1024px): the room scales down, the monitor fills most of the view, and windows are limited to the screen area.
+- Mobile (below 640px): skip the 3D room. Show a full-screen "phone-sized OS" or a vertical stack of glossy cards in the same visual style, with a bottom taskbar. Windows open as full-screen sheets with a back button. No drag required.
+- Touch support for dragging, tapping, and swiping.
+
+# 7. ACCESSIBILITY AND PERFORMANCE
+
+- prefers-reduced-motion: disable parallax, flicker, camera zooms, and boot animations; swap to simple fades.
+- Full keyboard navigation (Tab order, Enter/Space to open, Esc to close, arrow keys between icons), visible focus rings styled to match the theme.
+- Semantic HTML (header, nav, main, section), ARIA roles for windows (role="dialog", aria-labelledby), and alt text or aria-labels for every icon and CSS-drawn object.
+- A hidden but available "Skip to plain content" link that jumps to a simple, readable, linear version of all my content (also helps SEO and screen readers).
+- Meta tags: title, description, Open Graph, theme-color, and a favicon (inline SVG data URI).
+- Target 60fps; avoid layout thrashing; use will-change sparingly; lazy-build heavy scenes; total file size under about 400 KB (excluding CDN libraries).
+
+# 8. CODE ARCHITECTURE
+
+- Deliver ONE self-contained HTML file (inline CSS and JS). External scripts only from cdnjs.cloudflare.com, and external fonts only from Google Fonts.
+- No localStorage or sessionStorage; keep state in memory.
+- At the very top of the script, include a single `PORTFOLIO_DATA` object holding ALL my content (name, title, tagline, about, education[], experience[], projects[], skills{}, certifications[], achievements[], links{}, contact{}). The whole UI must render from this object so I can edit content without touching the layout.
+- Organize code into clearly commented sections: DATA, CONFIG, STYLES (with CSS variables), SCENE, WINDOW MANAGER, SECTION RENDERERS, AUDIO, EASTER EGGS, INIT.
+- Use vanilla JS (no framework) unless Three.js is chosen. No build step needed.
+- Handle errors gracefully (for example, if 3D or backdrop-filter is unsupported, fall back to a flat but still styled layout).
+
+# 9. THINGS TO AVOID
+- No copyrighted logos, Microsoft/Apple assets, or the actual Bliss photo; recreate the style with original shapes and colors.
+- No flat, minimalist, or modern-SaaS styling in Y2K mode.
+- No lorem ipsum, and no made-up facts.
+- No autoplaying audio, no auto-opening popups that cannot be closed, and no clutter that hides my content.
+- No external image, video, or 3D model files.
+
+# 10. OUTPUT FORMAT
+1. A short "Design Brief" (6-8 lines): the chosen 3D technique, the room theme, the inferred title and tagline, and any assumptions.
+2. The complete, working, copy-paste-ready code in a single code block.
+3. A "Where to edit" list explaining how to change content, colors, and toggles.
+4. A "Placeholders to fill" list of everything missing from my resume.
+5. A "Self-check" confirming each item in the checklist below.
+6. Three ideas to take it further (e.g., real guestbook backend, blog, project case studies).
+
+# ACCEPTANCE CHECKLIST (verify before answering)
+[ ] All content comes from my resume, with placeholders where data is missing
+[ ] Real 3D depth and parallax in the desk scene
+[ ] Draggable, stackable, minimizable XP-style windows
+[ ] Boot screen (skippable), taskbar, Start menu, working clock
+[ ] Every resume section has a home (About, Projects, Skills, Experience, Education, Achievements, Contact, Resume)
+[ ] Skeuomorphic materials are used consistently (glossy, beveled, metal, glass, wood)
+[ ] Mobile layout works without the 3D scene
+[ ] Reduced-motion, keyboard navigation, and a plain-content fallback are included
+[ ] Sound is off by default with a mute toggle
+[ ] Single editable data object at the top
+[ ] No copyrighted assets, no external media files

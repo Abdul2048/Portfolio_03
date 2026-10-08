@@ -1,0 +1,154 @@
+# PURPOSE OF THIS PROMPT
+This is the STRUCTURE and SKELETON prompt. It works together with the "Y2K 3D skeuomorphic portfolio" UI prompt I already gave you. 
+- UI prompt = how it looks (visual style, 3D room, windows, materials, accessibility).
+- THIS prompt = what pages exist, how they are organized, what each contains, and how data flows.
+If the two ever conflict, keep the visual style from the UI prompt and follow the structure from this one.
+My resume is attached and is the only source of truth for facts. Never invent anything. Use clearly marked placeholders for anything missing.
+
+# 1. SITE ARCHITECTURE: EXACTLY 3 MAIN TABS
+
+The whole site has three top-level tabs and nothing else at the top level:
+
+TAB 1: PORTFOLIO  (everything from my resume lives here)
+TAB 2: BLOGS      (my writing)
+TAB 3: PHOTOGRAPHY (my photos)
+
+## 1.1 How the tabs appear in the Y2K UI
+- Tabs are styled as glossy, beveled browser tabs (Internet Explorer / early Firefox era) in a persistent tab bar at the top of the monitor screen, with a fake address bar showing a retro URL per tab (e.g., www.myname.com/portfolio, /blogs, /photography).
+- In the 3D room, each tab is also reachable through a physical object:
+  - Portfolio = the monitor, notebook, CD cases, Rolodex, floppy disk
+  - Blogs = a typewriter or diary/journal on the desk
+  - Photography = a vintage digital camera and a photo album or light table
+- Clicking an object and clicking the matching tab must lead to the same place. Active tab is highlighted (raised, glossy, brighter); inactive tabs look slightly recessed.
+- Switching tabs plays a short page-transition (a 3D flip or slide, 400-600ms), with a status-bar message like "Loading..." that disappears when done.
+- Routing: use hash-based routes (#/portfolio, #/blogs, #/blogs/post-slug, #/photography, #/photography/album-slug) so the browser back and forward buttons work and links are shareable. No localStorage; keep state in memory.
+- Default tab on first load: Portfolio.
+- A persistent footer/status bar across all tabs showing: visitor counter (decorative), clock, mute toggle, Y2K/Modern mode toggle, and a "Plain version" link.
+
+# 2. TAB 1: PORTFOLIO (RESUME-BASED, ALL IN ONE TAB)
+
+This tab contains ALL resume content. It uses a left sidebar (XP-style "task pane" or Mac-style source list) with sub-sections, and a main content pane. On scroll or click, sections open as windows or panels in the 3D desktop style.
+
+Sub-sections, in this order:
+1. HOME / HERO: name, inferred job title, one-line tagline, photo placeholder in an ID badge or polaroid frame, primary buttons [View Projects] [Download Resume] [Contact Me].
+2. ABOUT: short first-person summary, location, languages, interests, fun facts only if present in the resume.
+3. EDUCATION: degree, institution, years, grades, relevant coursework (only if present).
+4. EXPERIENCE: internships, jobs, and roles as a timeline or file-explorer tree, each with company, title, dates, location, and 2-4 bullets.
+5. PROJECTS: grid of 3D flip cards (front: title and faux screenshot, back: tech stack and links). Each opens a window with description, my role, tech pills, outcomes (only if in the resume), [Live Demo] and [GitHub] buttons. Add a filter bar by tech or category.
+6. SKILLS: grouped by category (Languages, Frameworks, Tools, Databases, Soft skills), shown as XP-style bars or "Control Panel" icons. Use qualitative tiers (Familiar, Proficient, Advanced) unless the resume provides levels. Never fabricate percentages.
+7. CERTIFICATIONS and ACHIEVEMENTS: framed certificates, badges, trophies shelf, plus 88x31 retro badges as decoration.
+8. RESUME: download button (placeholder link) and an inline preview area.
+9. CONTACT: mock email-client or messenger window with mailto: link, email, LinkedIn, GitHub, and other links from the resume. Guestbook and visitor counter live in the footer area or as a small window (decorative, front-end only).
+10.and other things mentioned in the remsume 
+
+# 3. TAB 2: BLOGS
+
+## 3.1 Layout
+- Styled as a vintage blog/webzine page (Blogger / LiveJournal / Xanga / early WordPress era), shown inside a window with a glossy header banner ("My Blog" in chunky Y2K display text).
+- Two views:
+  A) BLOG INDEX: a list or card grid of posts, newest first.
+  B) POST VIEW: a single post in a reading window.
+
+## 3.2 Blog index features
+- Each entry shows: title, date, category tag pill, estimated reading time (computed from word count), a 1-2 line excerpt, and a "Read more >>" link.
+- Sidebar (classic blog style): About the author (short), Categories list with counts, Tag cloud, Archive by month, a small "Search this blog" box, a fake RSS button, and a "Recent comments" box clearly marked as sample content.
+- Client-side search and category/tag filtering (no backend).
+- Pagination or "Load more" (6 posts per page).
+- If I have no posts yet, show 3 clearly labeled SAMPLE posts with the tag [SAMPLE] and a note explaining where to replace them.
+
+## 3.3 Post view features
+- Title, date, category, tags, reading time, and a "Back to all posts" button.
+- Body rendered from a lightweight Markdown-like string or an array of blocks (paragraph, heading, quote, code block, image, list), so I can write posts easily in the data object.
+- Previous and Next post links.
+- A decorative "Share" row (copy link only; no tracking scripts) and a "Comments are disabled in this demo" note. No fake comments styled as real ones.
+- Code blocks styled like a Notepad or terminal window.
+
+# 4. TAB 3: PHOTOGRAPHY
+
+## 4.1 Layout
+- Styled as a digital camera + photo album experience (think early digital photo software and Flash photo galleries). Header banner: "Photography" in glossy Y2K style, with a small camera icon.
+- Two views:
+  A) ALBUMS / GALLERY HOME
+  B) ALBUM VIEW with a LIGHTBOX
+
+## 4.2 Gallery features
+- Albums as 3D stacked photo piles or album covers that fan out on hover. Each shows a title, photo count, and a date or location.
+- Inside an album: a responsive masonry or uniform grid of thumbnails shown as printed photos with white borders, slight random rotation, and soft shadows. Thumbnails lazy-load.
+- Lightbox: dark glass overlay, large image, caption, title, date, location, optional camera/EXIF-style info line (camera, lens, ISO, shutter, aperture; only if I provide it), previous/next arrows, thumbnail strip, Esc to close, arrow keys to navigate, swipe on mobile, and a "slideshow" button (auto-advance every 4s, pausable).
+- Filter chips by category (Nature, Street, Portrait, Travel, etc., taken from my data).
+- Optional "contact sheet" toggle that shows all photos as tiny frames.
+
+## 4.3 Images (important)
+- Photos come from my data object as image URLs or data URIs. 
+- By default, until I add my own, generate original CSS/SVG/canvas gradient placeholders with a "Photo 01" label so the layout works with no external files.
+- Every photo needs alt text and a caption field in the data.
+- Show a note: "Replace the placeholder with your image URL in PORTFOLIO_DATA.photography."
+
+# 5. DATA MODEL (single source of truth)
+
+At the top of the script, define one `SITE_DATA` object that drives all three tabs. Suggested shape:
+
+SITE_DATA = {
+  meta: { name, title, tagline, location, email, siteTitle },
+  links: { github, linkedin, twitter, other: [] },
+  portfolio: {
+    about: {}, education: [], experience: [], projects: [], 
+    skills: { categories: [ { name, items: [ { name, tier } ] } ] },
+    certifications: [], achievements: [], resume: { url, fileName }
+  },
+  blogs: {
+    categories: [],
+    posts: [ { slug, title, date, category, tags: [], excerpt, content: [] } ]
+  },
+  photography: {
+    categories: [],
+    albums: [ { slug, title, date, location, cover, photos: [ { src, alt, caption, category, exif: {} } ] } ]
+  },
+  settings: { soundDefault: false, defaultTab: "portfolio", defaultMode: "y2k" }
+}
+
+Rules:
+- All UI must render from this object. Editing it must be enough to update the site.
+- Prefill portfolio.* from my resume. Prefill blogs and photography with clearly marked sample or placeholder data.
+
+# 6. NAVIGATION, SEARCH, AND SITE-WIDE FEATURES
+- Global tab bar, plus breadcrumbs inside each tab (e.g., Home > Blogs > Post title).
+- A site-wide search box in the address bar that searches projects, posts, and albums.
+- A site map link in the footer (classic 2000s touch) listing every page.
+- Custom "404" view for unknown hash routes in Y2K style, with a link back home.
+- Keyboard shortcuts: 1, 2, 3 switch tabs; Esc closes windows or lightboxes; / focuses search.
+- Document title and meta description update when the tab changes.
+
+# 7. RESPONSIVE STRUCTURE
+- Desktop: full 3D room, browser-style tab bar, window manager, sidebars visible.
+- Tablet: the room scales down; sidebars collapse into a toggle.
+- Mobile: no 3D room; use a vertical layout with a bottom tab bar (Portfolio, Blogs, Photography) in the same glossy style. Portfolio sub-sections become an accordion or a swipeable list. Blog and photo views open full-screen with a back button.
+
+# 8. CODE STRUCTURE
+- One self-contained HTML file (inline CSS and JS) as in the UI prompt.
+- Organize the code with clear comment headers: DATA, CONFIG, STYLES, ROUTER, TAB: PORTFOLIO, TAB: BLOGS, TAB: PHOTOGRAPHY, WINDOW MANAGER, SCENE, AUDIO, EASTER EGGS, INIT.
+- Each tab has its own render function (renderPortfolio, renderBlogs, renderPhotography) so I can edit them independently.
+- Graceful fallbacks if 3D or backdrop-filter is unsupported.
+
+# 9. OUTPUT FORMAT
+1. Sitemap: a short tree showing all tabs, sub-sections, and routes.
+2. Design brief (5-6 lines): chosen theme, inferred title and tagline, assumptions.
+3. The complete working code in a single code block.
+4. "How to add content": exact steps for adding a new project, a new blog post, and a new photo album in SITE_DATA.
+5. "Placeholders to fill": everything missing from my resume or data.
+6. Self-check against the checklist below.
+
+# CHECKLIST
+[ ] Exactly 3 top-level tabs: Portfolio, Blogs, Photography
+[ ] All resume content sits inside the Portfolio tab, in the listed sub-sections
+[ ] Blog index, post view, search, categories, tags, and sample posts work
+[ ] Photography albums, grid, lightbox, slideshow, and placeholders work
+[ ] Hash routing works with back and forward buttons
+[ ] Everything renders from one SITE_DATA object
+[ ] Y2K 3D skeuomorphic style is applied consistently across all three tabs
+[ ] Mobile layout uses a bottom tab bar and no 3D room
+[ ] Accessibility, reduced motion, keyboard navigation, and plain-content fallback are present
+[ ] No invented facts, no copyrighted assets
+
+
+
